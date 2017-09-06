@@ -20,7 +20,7 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		model.addAttribute("serverTime",new SimpleDateFormat("yy년 MM월 dd일 E요일").format(new Date()) );
-		return "home";
+		return "public:common/home.tiles";
 	}
 	
 }

@@ -3,4 +3,3 @@
 <script>
 app.path.init("<%=application.getContextPath()%>");
 </script>
-s

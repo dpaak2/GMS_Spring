@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="../common/head.jsp"/>
 <body>
 <div id="wrapper">
 <div id="container">
@@ -21,13 +20,6 @@
       </form>
 	
 </div>
-<footer >
-		<div>
-			<p>Posted by: hayun kim</p>
-			<p>Contact information: <a href="mailto:someone@example.com">
-			someone@hanbit.com</a>.</p>
-			</div>
-		</footer>
 	</div>
 	<script>
 	app.auth.init();

@@ -16,7 +16,7 @@ public class AuthController {
 		logger.info("AuthController!::::: goLogin {}","진입" );
 	/*	model.addAttribute("test","test"); request.setAttribute("test","test");*/
 		/*model.addAttribute(model);*/
-		return "common/login";
+		return "public:common/login.tiles";
 	}
 	@RequestMapping("/lgoin")
 	public String login(Model model) {

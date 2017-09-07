@@ -11,6 +11,8 @@ public class Clock {
 /*      SimpleDateFormat sdf = new SimpleDateFormat("yyyy년MM월dd일 a hh:mm:ss");//a가 있으면 5 없으면 15로 나온다
       now = sdf.format(new Date());
       return now;*/
+      
+      /*hello*/
       return new SimpleDateFormat("yyyy년MM월dd일 a hh:mm:ss").format (new Date());
    }
 }

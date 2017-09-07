@@ -100,6 +100,8 @@ app.main = (function() {
 		$('.list-group li').eq(4).on('click', function() {
 			app.controller.deleteTarget('지울 아이디??');
 		});
+		
+		
 		$('.list-group li').eq(5).on('click', function() {
 			app.controller.moveTo('grade','grade_add');
 		});
@@ -107,22 +109,15 @@ app.main = (function() {
 			alert('grade list');
 			app.controller.moveTo('grade','grade_list');
 		});
-		$('.list-group li').eq(6).on('click', function() {
+		$('.list-group li').eq(7).on('click', function() {
 			app.controller.moveTo('grade','grade_detail');
 		});
-		$('.list-group li').eq(7).on('click', function() {
-			app.controller.moveTo('garde','grade_detail');
-		});
 		$('.list-group li').eq(8).on('click', function() {
-			app.controller.moveTo('grade','grade_update');
+			alert();
+			app.controller.moveTo('garde','grade_update');
 		});
 		$('.list-group li').eq(9).on('click', function() {
-			/*app.controller.deleTarget('지울 성적??');*/
-			alert('board delete');
-			app.controller.moveTo('board','board_delete');
-		});
-		$('.list-group li').eq(10).on('click', function() {
-			app.controller.moveTo('board','board_add');
+			app.controller.moveTo('garde','grade_delete');
 		});
 	};
 	var setContentView = function() { /* view */

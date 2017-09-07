@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<header>
-<jsp:include page="../common/navbar.jsp"/>
-</header>
            
 		<div class="container" style="width:60%">
 			<div class="row main">
@@ -10,7 +7,7 @@
 	               		<h1 class="title" >${requestScope.student.name} Profile</h1>
 	               		<hr />
 	               	</div>
-	            </div> 
+	            <s/div> 
 				<div class="main-login main-center">
 					<form class="form-horizontal" method="post" action="#">
 						
@@ -82,5 +79,5 @@
 			</div>
 		</div>
 		<script>
-		memberUpdate.init();
+		app.memberUpdate.init();
 		</script>

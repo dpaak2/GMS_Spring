@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="../member/member_head.jsp"/>
 <div id="container" class="margin-center" style="width: 500px;">
 <img src="<%=request.getContextPath()%>/WEB-INF/resources/img/joinimg.jpg" alt="" />
 <form id="join_form" action="">
@@ -40,4 +39,3 @@
 </fieldset>
 </form>
 </div>
-<jsp:include page="../common/footer.jsp"/>

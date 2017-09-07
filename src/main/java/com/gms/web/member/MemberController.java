@@ -13,24 +13,24 @@ public class MemberController {
 	public String memberAdd() {
 		logger.info("MemberController!::::: memberAdd {}","진입" );
 		
-		return "member/member_add";
+		return "auth:member/member_add.tiles";
 	}
 	
 	@RequestMapping("/member_list")
 	public String memberList(){
 		logger.info("MemberController!::::: memberList {}","진입" );
-		return "member/member_list";
+		return "auth:member/member_list.tiles";
 	}
 	
 	@RequestMapping("/member_detail")
 	public String memberDetail() {
 		logger.info("MemberController!::::: memberDetail {}","진입" );
-		return "member/member_detail";
+		return "auth:member/member_detail.tiles";
 	}
 	
 	@RequestMapping("/member_update")
 	public String memberUpdate() {
 		logger.info("MemberController!::::: memberUpdate {}","진입" );
-		return "member/member_update";
+		return "auth:member/member_update.tiles";
 	}
 }

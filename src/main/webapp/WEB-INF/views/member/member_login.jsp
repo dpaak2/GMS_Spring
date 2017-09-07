@@ -1,8 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="member_head.jsp"/>
-<header>
-<jsp:include page="../common/navbar.jsp"/>
-</header>
 <div id="container">
 	<img src="../img/login.png" alt="" /><br />
 	<mark style="color: red;">*ID는 숫자포함 8자 이내</mark><br />
@@ -17,4 +13,3 @@
 	<button id="login-button_cancle" onclick="window.location.href='../index.jsp'">cancel</button>
 </form>	
 </div>
-<jsp:include page="../common/footer.jsp"/>

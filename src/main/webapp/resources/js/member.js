@@ -104,6 +104,7 @@ app.main = (function() {
 			app.controller.moveTo('grade','grade_add');
 		});
 		$('.list-group li').eq(6).on('click', function() {
+			alert('grade list');
 			app.controller.moveTo('grade','grade_list');
 		});
 		$('.list-group li').eq(6).on('click', function() {
@@ -116,10 +117,12 @@ app.main = (function() {
 			app.controller.moveTo('grade','grade_update');
 		});
 		$('.list-group li').eq(9).on('click', function() {
-			app.controller.moveTo('','');
+			/*app.controller.deleTarget('지울 성적??');*/
+			alert('board delete');
+			app.controller.moveTo('board','board_delete');
 		});
 		$('.list-group li').eq(10).on('click', function() {
-			app.controller.deleTarget('지울 성적??');
+			app.controller.moveTo('board','board_add');
 		});
 	};
 	var setContentView = function() { /* view */

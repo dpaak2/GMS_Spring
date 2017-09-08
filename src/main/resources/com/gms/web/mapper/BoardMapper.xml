@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gms.web.BoardMapper">
-  <select id="selectById" resultType="com.gms.web.BoardDTO">
-    select * from Blog where id = #{id}
+<mapper namespace="com.gms.web.mapper.BoardMapper">
+  <select id="selectById" resultType="com.gms.web.board.ArticleDTO">
+    select * from Board where article_seq = #{articleSeq}
   </select>
 </mapper>

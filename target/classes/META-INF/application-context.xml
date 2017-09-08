@@ -31,10 +31,14 @@
 		</property>
 	</bean>
 	
-	<context:component-scan base-package="com.gms.web" />
 	
+	
+	
+	<context:component-scan base-package="com.gms.web" />
+	<!--DB연동   -->
 	<mybatis-spring:scan base-package="com.gms.web.mapper"/>
 	<context:property-placeholder location="classpath:/config/database.properties"/>
+	<!-- connection -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driver}"/>
 		<property name="url" value="${jdbc.url}"/>
@@ -43,6 +47,7 @@
 	</bean>
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
+		<!-- (*) = ant notation  -->
 		<property name="mapperLocations" value="classpath*:com/gms/web/mapper/*.xml"/>	
 	</bean>
 	
@@ -52,6 +57,9 @@
 	<bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
+	
+	
+	
 	
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="viewResolvers">

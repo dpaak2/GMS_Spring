@@ -14,6 +14,7 @@
 
 
 <div id="container">
+<p>Count : ${count}</p>
 <!--id, pw, ssn,name,regedate,email,major,subject-->
 <table id="member_list_tab">
 	<tr>

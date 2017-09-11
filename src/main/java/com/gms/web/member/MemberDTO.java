@@ -1,24 +1,22 @@
 package com.gms.web.member;
 
-import java.io.Serializable;
-
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 @Lazy @Component
-public class MemberDTO implements Serializable{
-	private static final long serialVersionUID = 1L;
-	private String id, pw, ssn,name,regedate,email,major,subject,phone,profile,birthday,gender;
+public class MemberDTO{
+
+	private String id, password, ssn,name,regedate,email,major,subject,phone,profile,birthday,gender;
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPw() {
-		return pw;
+	public String getPass() {
+		return password;
 	}
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setPass(String password) {
+		this.password = password;
 	}
 	public String getSsn() {
 		return ssn;
@@ -80,12 +78,10 @@ public class MemberDTO implements Serializable{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+
 	@Override
 	public String toString() {
-		return "MemberBean [id=" + id + ", pw=" + pw + ", ssn=" + ssn + ", name=" + name + ", regedate=" + regedate
+		return "MemberBean [id=" + id + ", pass=" + password + ", ssn=" + ssn + ", name=" + name + ", regedate=" + regedate
 				+ ", email=" + email + ", major=" + major + ", subject=" + subject + ", phone=" + phone + ", profile="
 				+ profile + ", birthday=" + birthday + ", gender=" + gender + "]";
 	}

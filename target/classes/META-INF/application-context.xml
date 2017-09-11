@@ -16,12 +16,28 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
-	
+	<!-- autowired & resources -->	
+	<context:annotation-config />
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	
+		
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="viewResolvers">
+			<list>
+			<!--tiles가 우선순의로 먹는다   -->
+				<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+					<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" >
+					</property>
+				</bean>
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="prefix" value="/WEB-INF/views/" />
+					<property name="suffix" value=".jsp" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 	<!-- 오후 4:41 2017-09-06 변경시작 !!!!  -->
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
@@ -30,9 +46,6 @@
 			</list>
 		</property>
 	</bean>
-	
-	
-	
 	
 	<context:component-scan base-package="com.gms.web" />
 	<!--DB연동   -->
@@ -60,22 +73,7 @@
 	
 	
 	
-	
-	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-		<property name="viewResolvers">
-			<list>
-			<!--tiles가 우선순의로 먹는다   -->
-				<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-					<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" >
-					</property>
-				</bean>
-				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-					<property name="prefix" value="/WEB-INF/views/" />
-					<property name="suffix" value=".jsp" />
-				</bean>
-			</list>
-		</property>
-	</bean>
+
 	
 	<!-- 옛날 시스템이다   -->
 <!-- from servlet-context.xml 짤라왔다 

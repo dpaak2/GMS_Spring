@@ -10,10 +10,10 @@ import com.gms.web.command.CommandDTO;
 
 @Component
 public interface MemberService {
-	public Map<String, Object> login(MemberDTO bean); /*client를 */
+	public Map<String, Object> login(CommandDTO bean); /*client를 */
 	public String addMember(Map<String, Object> map);
 	public List<?> list(CommandDTO cmd);
-	public String count(CommandDTO cmd);
+	public String count();
 	public StudentDTO findById(CommandDTO cmd);
 	public List<?> findByName(CommandDTO cmd);
 	public String modifiyProfile(MemberDTO bean);

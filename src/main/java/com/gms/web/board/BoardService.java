@@ -2,7 +2,8 @@ package com.gms.web.board;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-@Component
+
+@Component 
 public interface BoardService {
 	public String addArticle(ArticleDTO bean);
 	public String countArticles();

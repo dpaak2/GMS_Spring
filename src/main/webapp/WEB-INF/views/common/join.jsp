@@ -4,6 +4,10 @@
 <form id="join_form" action="">
 <fieldset>
 <legend>JOIN INFORMATION</legend>
+    <div style="text-align: center; width: 100%; height: 50px;">
+      <h4 style="font-size: 20px; color: red;">${message}</h4>
+      </div>
+	
 <h3>학생 정보</h3>
 <span id="join_id">ID: </span>
 <input name="id" type="text" placeholder="ID" /><br />

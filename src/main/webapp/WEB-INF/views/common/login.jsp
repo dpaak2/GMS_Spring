@@ -18,6 +18,9 @@
             <input type="submit" id="loginBtn" value="로그인"  class="submit-pink">
          </fieldset>
       </form>
+      <div style="text-align: center; width: 100%; height: 50px;">
+      <h4 style="font-size: 20px; color: red;">${message}</h4>
+      </div>
 	
 </div>
 	</div>

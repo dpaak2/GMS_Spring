@@ -1,7 +1,15 @@
 /**
  * member javaScript
  * 
- * 1.app 2.session 3.main 4.auth 5.navbar 6.member 7.grade 8.board 9.controller
+ * 1.app
+ * 2.session
+ * 3.main
+ * 4.auth 
+ * 5.navbar 
+ * 6.member
+ * 7.grade 
+ * 8.board 
+ * 9.controller
  */
 
 /* name space pattern */
@@ -86,8 +94,9 @@ app.main = (function() {
 			app.controller.moveTo('member', 'member_add');
 		});
 		$('.list-group li').eq(1).on('click', function() {
-			app.controller.moveTo('member', 'member_list');
-			/* app.controller.list('member','member_list','1'); */
+			alert('member list enter');
+			app.member.list('member','list','1');
+		
 		});
 		$('.list-group li').eq(2).on('click', function() {
 			app.controller.moveTo('member', 'member_detail');
@@ -143,7 +152,6 @@ app.auth = (function() {
 	var init = function() {
 		$('#loginBtn').on('click', function() {
 			alert('로그인 버튼 click');
-
 			if ($('#input_id').val() === "") {
 				alert('ID를 입력해 주세요 ');
 				return false;
@@ -179,8 +187,7 @@ app.navbar = (function() {
 		});
 		$('.dropdown-menu a').eq(1).on('click', function() {
 			alert('1');
-			app.controller.moveTo('member','member_list');
-			/*app.controller.list('member', 'member_list', '1');*/
+			app.member.list();
 		});
 		$('.dropdown-menu a').eq(2).on('click', function() {
 			alert('2');
@@ -245,7 +252,8 @@ app.navbar = (function() {
 })();
 
 /*******************************************************************************
- * 6.member member detail
+ * 6.member
+ *  member detail
  ******************************************************************************/
 app.member = (function() {
 	var init = function() {
@@ -266,18 +274,65 @@ app.member = (function() {
 			sessionStorage.setItem('title', $('#title').text());
 			controller.moveTo('member', 'member_update');
 		});
-
 	};
 	var setContentView = function() {
 		/* 화면 */
 		alert('member detail');
 	};
+	function list(dir,page,pno){
+		alert('list no'+pno);
+		location.href=app.path.ctx()+"/member/list/"+pno;
+	};
+
 	return {
 		init : init,
+		list : list
 	};
 })();
 
-/* controller */
+
+/*******************************************************************************
+ * 7.grade
+ ******************************************************************************/
+app.grade = (function() {
+	var init = function() {
+		onCreate();
+	};
+	var onCreate = function() {
+		setContentView();
+	};
+	var setContentView = function() {
+	};
+	return {
+		init : init
+	};
+})();
+
+/*******************************************************************************
+ *8.board
+ ******************************************************************************/
+app.board = (function() {
+	var init = function() {
+		onCreate();
+	};
+	var onCreate = function() {
+		setContentView();
+	};
+	var setContentView = function() {
+	};
+	return {
+		init : init
+	}
+})();
+
+
+/*******************************************************************************************
+ * 9.controller 
+ * 
+ * ******************************************************************************************/
+
+
+
 app.controller = (function() {
 	/* 기능들의 집합 이다 / 기능은 public 이다 */
 	var init = function() {
@@ -285,17 +340,12 @@ app.controller = (function() {
 	};
 
 	var moveTo = function(x, y) {
-		location.href = app.path.ctx() + "/" + x + "/" + y;
+		location.href = app.path.ctx() + "/common/path/" + x + "/" + y;
 	}
 	var deleteTarget = function(target) {
 		prompt(target + '의 ID?');
 	}
 
-	var list = function(dir, page, pageNumber) {
-		alert('pageNumber' + pageNumber);
-		location.href = app.path.ctx() + "/" + dir + ".do?action=list&page="
-				+ page + "&pageNumber=" + pageNumber;
-	}
 	var updateStudent = function(id, email) {
 		alert('수정할  id: ' + id);
 		location.href = app.path.ctx()
@@ -313,11 +363,12 @@ app.controller = (function() {
 				+ "/member.do?action=detail&page=member_detail&id=" + x;
 	}
 	var searchName = function() {
+		alert('검색 버튼 클릭');
 		var $name = $('#searchName').val;
 		if ($name != "") {
 			alert('찾는 이름 : ' + $name);
 			location.href = app.path.ctx()
-					+ "/member.do?action=search&page=member_list&search="
+					+ "/member/search/"
 					+ $name;
 		} else {
 			alert('찾을실 이름을 검색하여 주세요 !!!!');
@@ -332,7 +383,6 @@ app.controller = (function() {
 	return {
 		init : init,
 		moveTo : moveTo,
-		list : list,
 		deleteTarget : deleteTarget,
 		updateStudent : updateStudent,
 		deleteStudent : deleteStudent,
@@ -342,36 +392,3 @@ app.controller = (function() {
 	};
 })();
 
-/*******************************************************************************
- * grade
- ******************************************************************************/
-app.grade = (function() {
-	var init = function() {
-		onCreate();
-	};
-	var onCreate = function() {
-		setContentView();
-	};
-	var setContentView = function() {
-	};
-	return {
-		init : init
-	};
-})();
-
-/*******************************************************************************
- * board
- ******************************************************************************/
-app.board = (function() {
-	var init = function() {
-		onCreate();
-	};
-	var onCreate = function() {
-		setContentView();
-	};
-	var setContentView = function() {
-	};
-	return {
-		init : init
-	}
-})();

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.gms.web.command.CommandDTO;
 import com.gms.web.mapper.MemberMapper;
 import com.gms.web.member.MemberService;
+
 @Service
 public class MemberServiceImpl implements MemberService {
 	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
@@ -33,22 +34,26 @@ public class MemberServiceImpl implements MemberService {
 		logger.info("memberServiceimpl search id {}",cmd.getSearch());
 		logger.info("memberServiceimpl search password {}",cmd.getColumn());
 		Map<String,Object> map= new HashMap<>();
-		//String page ="";
+		String page ="", message="";
 		member = mapper.login(cmd);
 		logger.info("*******MemberServiceImpl login 에 ID가 있을 경우   id 정보 확인== {}", member.toString());
-		if(cmd.getColumn().equals(member.getPass())){
+		
+		
+		if(cmd.getSearch().equals(member.getId())){
 			logger.info("MemberServiceImpl login 에 ID가 있을 경우   DB확인 id=== {}", member.getId());
 			logger.info("MemberServiceImpl login 에 ID가 있을 경우   DB확인 passwrod=== {}", member.getPass());
 			logger.info("MemberServiceImpl login 에 ID가 있을 경우   id 정보 확인== {}", member.toString());
-			//page=(cmd.getColumn().equals(member.getPw()))? "auth:common/main.tiles":"public:common/login.tiles";
-			map.put("page", "auth:common/main.tiles");
-			//map.put("user", member);
+			page=(cmd.getColumn().equals(member.getPass()))? "auth:common/main.tiles":"public:common/login.tiles";
+			message=(cmd.getColumn().equals(member.getPass()))?"success":"비밀번호가 틀립니다";
 		}else {
 			logger.info("MemberServiceImpl login  디비 아이디가 없습니다 ");
-			//page="public:common/login.tiles";
-			//map.put("page", page);
-			map.put("page", "public:common/login.tiles");
+			page="public:common/join.tiles";
+			message="please create account!!";
+	
 		}
+		map.put("page", page);
+		map.put("message", message);
+		map.put("user", member);
 		return map;
 	}
 	
@@ -77,12 +82,9 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<?> list(CommandDTO cmd) {
-		/*list=(List<StudentDTO>) dao.selectAll(cmd);*/
-		System.out.println("list to string servicd"+list.toString());
-		return list; // ArrayList가 된다
+		return mapper.selectAll(cmd); 
 	}
 
 	@Override

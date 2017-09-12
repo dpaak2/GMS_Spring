@@ -2,12 +2,15 @@ package com.gms.web.common;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gms.web.command.CommandDTO;
@@ -29,15 +32,25 @@ public class AuthController {
 		/*model.addAttribute(model);*/
 		return "public:common/login.tiles";
 	}
-	@RequestMapping("/lgoin")
-	public String login(@RequestParam("id") String id, @RequestParam("pass") String pass) {
+	@RequestMapping(value="/lgoin", method=RequestMethod.POST)
+	public String login(
+			@RequestParam("id") String id, 
+			@RequestParam("pass") String pass,
+			HttpSession session,
+			Model model) {
 		logger.info("AuthController!:::::login-- {}","진입" );
 		logger.info("id",id);
 		logger.info("pass",pass);
+		
+		/*의미론적인것이 아닌 가독성에 의한 선택이 필요 */
 		cmd.setSearch(id);
 		cmd.setColumn(pass);
 		Map<String, Object> map = service.login(cmd);
-		/*"auth:common/main.tiles"*/
+	
+		if(map.get("message").equals("success")){
+			session.setAttribute("user", map.get("user"));
+		}
+		model.addAttribute("message",map.get("message"));
 		
 		return String.valueOf(map.get("page"));
 	}

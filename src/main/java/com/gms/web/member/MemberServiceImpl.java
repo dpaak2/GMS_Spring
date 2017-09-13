@@ -124,17 +124,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String removeUser(CommandDTO cmd) {
-		String removeResult = "";
-		for (StudentDTO m : list) {
-			if (cmd.equals(m.getId())) {
-				// list.get(i)=list[count-1];
-				map.remove(cmd);
-				break;
-			}
-		}
-		// list.get(i)=null;
-		// count--;
-		return removeResult;
+		
+		return String.valueOf(mapper.deleteUser(cmd));
 	}
 
 

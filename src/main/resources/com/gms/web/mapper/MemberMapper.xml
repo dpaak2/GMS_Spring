@@ -2,59 +2,65 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <!-- 
-	method이름과 동일해야 한다 
-  public String insertMember(Map<?, ?> map);
-	public List<?> selectAll(Command cmd);
-	public String count(Command cmd);
-	public StudentBean selectById(Command cmd);
-	public List<?> selectByName(Command cmd);
-	public String updateProfile(MemberBean bean);
-	public String deleteUser(Command cmd);
-	public MemberBean login(Command cmd);
-  
-  
-   -->
-  
-  <!-- CRUD -->
-  
+
 <mapper namespace="com.gms.web.mapper.MemberMapper">
-<select id="count"
- resultType="String"
- parameterType="com.gms.web.command.CommandDTO">
-	select count(*) as count from member
+<select id="count" resultType="string">
+   select count(*) as count from member
+</select>   
+
+<select id="login" 
+      resultType="com.gms.web.member.MemberDTO"
+      parameterType="com.gms.web.command.CommandDTO">
+      select 
+      member_id as id,
+      name,
+      password,
+      ssn,
+      regdate,
+      phone,
+      email,
+      profile
+      from member where member_id like #{search} 
 </select>
 
- <select id="login" resultType="com.gms.web.member.MemberDTO" parameterType="com.gms.web.command.CommandDTO">
-select member_id AS id ,
-	password,
-	name,
-	ssn,
-	regdate AS regedate,
-	phone,
-	email,
-	profile
-from Member where member_id = #{search}
-	
-</select> 
-
-
- <select id="selectAll" resultType="com.gms.web.member.StudentDTO" parameterType="com.gms.web.command.CommandDTO">
-	SELECT *
-	FROM ( 
-		SELECT @NO := @NO + 1 AS num, A.*
-		FROM 
-		  ( 
-		    select * from Student 
-		  ) A,
-		  ( SELECT @NO := 0 ) B  
-		  ORDER BY num DESC
-		) C
-		WHERE C.num BETWEEN #{startRow} AND #{endRow}
-	
-</select> 
-
-
-
+<select id="selectAll" 
+      resultType="com.gms.web.member.StudentDTO"   
+      parameterType="com.gms.web.command.CommandDTO">
+       SELECT *
+         FROM ( 
+         SELECT @NO := @NO + 1 AS num, A.*
+         FROM 
+           ( 
+             select * from Student 
+           ) A,
+           ( SELECT @NO := 0 ) B  
+           ORDER BY num DESC
+         ) C
+         WHERE C.num BETWEEN #{startRow} AND #{endRow}
+         </select>
+         
+  <select id="search" 
+      resultType="com.gms.web.member.StudentDTO"
+      parameterType="com.gms.web.command.CommandDTO">
+       SELECT *
+         FROM ( 
+         SELECT @NO := @NO + 1 AS num, A.*
+         FROM 
+           ( 
+             select * from Student 
+           ) A,
+           ( SELECT @NO := 0 ) B  
+           ORDER BY num DESC
+         ) C
+         WHERE C.name like '%${search}$%' 
+       
+</select>
+         <delete id="deleteUser" 
+         
+         parameterType="com.gms.web.command.CommandDTO"
+         >
+         DELETE FROM Member WHERE member_id like #{search}
+         
+         
+         </delete>   
 </mapper>

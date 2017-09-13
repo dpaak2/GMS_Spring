@@ -5,10 +5,12 @@ import org.springframework.stereotype.Component;
 
 import com.gms.web.constant.Extension;
 import com.gms.web.constant.Path;
+import com.gms.web.member.MemberDTO;
 
 @Lazy @Component
 public class CommandDTO implements Commandable {
 	protected String dir,action, page,pageNumber,search, view,column,startRow,endRow;
+	protected MemberDTO member;
 	public String getStartRow() {
 		return startRow;
 	}
@@ -72,7 +74,7 @@ public class CommandDTO implements Commandable {
 
 	public void setSearch(String search) {
 		this.search=(search==null)? "none":search;
-		System.out.println("서치: "+this.search);
+		System.out.println("commandDTO서치: "+this.search);
 	}
 
 	public String getColumn() {

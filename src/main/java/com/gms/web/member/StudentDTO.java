@@ -5,15 +5,16 @@ import org.springframework.stereotype.Component;
 @Lazy
 @Component
 public class StudentDTO {
+	private String id,name,ssn,regdate,
+	phone,email,subjects;
 	private int num;
-
 	public int getNum() {
 		return num;
 	}
 
-	private String id,name,ssn,regdate,
-	phone,email,subjects;
-
+	public void setNum(int num) {
+		this.num = num;
+	}
 
 	public String getId() {
 		return id;
@@ -27,10 +28,6 @@ public class StudentDTO {
 		return name;
 	}
 
-
-	public void setNum(int num) {
-		this.num = num;
-	}
 
 	public void setName(String name) {
 		this.name = name;

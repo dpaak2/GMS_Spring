@@ -6,7 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.gms.web.command.CommandDTO;
+import com.gms.web.grade.MajorDTO;
+import com.gms.web.mapper.GradeMapper;
 import com.gms.web.mapper.MemberMapper;
 import com.gms.web.member.MemberService;
 
@@ -16,16 +20,26 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired MemberMapper mapper;
 	@Autowired CommandDTO cmd;
 	@Autowired MemberDTO member;
+	@Autowired MajorDTO major;
+	@Autowired GradeMapper gmapper;
 	
-	Map<String, MemberDTO> map; // key 값은 String으로 주고 object(instance) =
-									// MemberBean이다
-	List<StudentDTO> list;
 	
-	public static MemberServiceImpl getInstance() {
-		return new MemberServiceImpl();
+
+	@Override @Transactional
+	public int addStudent(Map<?, ?> map) {
+		System.out.println("memberServiceimPl add 진입");
+		member = (MemberDTO)map.get("member");
+		@SuppressWarnings("unchecked")
+		List<MajorDTO> list= (List<MajorDTO>) map.get("list");
+		System.out.println("serviceImpl add ID #####"+member.getId());
+		System.out.println("serviceImpl add LIST####"+list);
+		
+		mapper.insert(member);
+		gmapper.insertMajor(list);
+		int rs=0;
+		return rs;
 	}
 
-	private MemberServiceImpl(){}
 	
 
 	@Override
@@ -41,10 +55,10 @@ public class MemberServiceImpl implements MemberService {
 		
 		if(cmd.getSearch().equals(member.getId())){
 			logger.info("MemberServiceImpl login 에 ID가 있을 경우   DB확인 id=== {}", member.getId());
-			logger.info("MemberServiceImpl login 에 ID가 있을 경우   DB확인 passwrod=== {}", member.getPass());
+			logger.info("MemberServiceImpl login 에 ID가 있을 경우   DB확인 passwrod=== {}", member.getPassword());
 			logger.info("MemberServiceImpl login 에 ID가 있을 경우   id 정보 확인== {}", member.toString());
-			page=(cmd.getColumn().equals(member.getPass()))? "auth:common/main.tiles":"public:common/login.tiles";
-			message=(cmd.getColumn().equals(member.getPass()))?"success":"비밀번호가 틀립니다";
+			page=(cmd.getColumn().equals(member.getPassword()))? "auth:common/main.tiles":"public:common/login.tiles";
+			message=(cmd.getColumn().equals(member.getPassword()))?"success":"비밀번호가 틀립니다";
 		}else {
 			logger.info("MemberServiceImpl login  디비 아이디가 없습니다 ");
 			page="public:common/join.tiles";
@@ -57,21 +71,7 @@ public class MemberServiceImpl implements MemberService {
 		return map;
 	}
 	
-	@Override
-	public String addMember(Map<String, Object> map) {
-		System.out.println("Member serviceImpl entered");
-		String result="";
-		MemberDTO m = (MemberDTO) map.get("member");
-		System.out.println("넘어온 학생 회원정보 ==="+ m.toString());
-	/*	@SuppressWarnings("unchecked")
-		List<MajorDTO> list= (List<MajorDTO>) map.get("major");
-		System.out.println("넘어온 과목들 !!!"+list.toString());
-		result= dao.insertMember(map);
-		Separator.cmd.setDir("home");
-		Separator.cmd.setPage("main");
-		Separator.cmd.process();*/
-		return result;
-	}
+
 
 	@Override
 	public String count() {
@@ -87,11 +87,10 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.selectAll(cmd); 
 	}
 
-	@Override
+	@Override 
 	public StudentDTO findById(CommandDTO cmd) {
-		StudentDTO stu = new StudentDTO();
-		/*stu = dao.selectById(cmd);*/
-		return stu;
+	
+		return mapper.selectById(cmd);
 	}
 
 	@Override
@@ -102,23 +101,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String modifiyProfile(MemberDTO bean) {
-		String result = "";
-		// findById(bean.getPw()).setPw(bean.getPw());
-		CommandDTO cmd=new CommandDTO();
-		cmd.setSearch(bean.getId());
-		/*MemberDTO mem =dao.login(cmd);
-		if (!bean.getName().equals("")) {
-			mem.setName(bean.getName());
-		}
-		if (!bean.getPw().equals("")) {
-			mem.setPw(bean.getPw());
-		}
-		if (!bean.getSsn().equals("")) {
-			mem.setSsn(bean.getSsn());
-		}
-		System.out.println("serviceImpl*****" + mem);
-*/		return result;
+	public int modifiyProfile(MemberDTO bean) {
+		System.out.println("service IMPL 넘어온 아이디 ::::"+bean.getId());
+		System.out.println("service IMPL 넘어온 이메일 ::::"+bean.getEmail());
+		System.out.println("service IMPL 넘어온 비밀번호 ::::"+bean.getPassword());
+	return mapper.updateProfile(bean);
 	}
 
 
@@ -127,6 +114,9 @@ public class MemberServiceImpl implements MemberService {
 		
 		return String.valueOf(mapper.deleteUser(cmd));
 	}
+
+
+
 
 
 }

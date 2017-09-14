@@ -9,9 +9,9 @@
                 </div>
                 <div class="col-md-9 col-xs-12 col-sm-6 col-lg-9">
                     <div class="" style="border-bottom:1px solid black">
-                      <span style="font-size: 50px" id="name">${requestScope.student.name}</span>
+                      <span style="font-size: 50px" id="name">${student.name}</span>
                       &nbsp;&nbsp;&nbsp;&nbsp;
-                      <button id="memberUpdateBtn" >정보수정</button>
+                      <button id="memberUpdateBtn" onclick="app.controller.moveTo('member','member_update')">정보수정</button>
           
                     </div>
                       <hr>
@@ -22,24 +22,24 @@
                       	<p id="id">
                       		<span class="glyphicon glyphicon-credit-card one" style="width:50px;">
                       		</span>
-                      			${requestScope.student.id}
+                      			${student.id}
                       	 </p>
                       </li>
                       <li> <!-- num, id, name, ssn, regdate, phone, email, title -->
                       	<p id="email" >
                       		<span class="glyphicon glyphicon-envelope one" style="width:50px;">
                       		</span>
-                      			${requestScope.student.email}
+                      			${student.email}
                       	  </p>
                       </li>
                       <li><p><span class="glyphicon glyphicon-bold" style="width:50px;"></span>
-                      			${requestScope.student.ssn}
+                      			${student.ssn}
                       	  </p>
                       </li>
                       <li>  <p id="phone">
                       			<span class="glyphicon glyphicon-earphone one" style="width:50px;">
                       			</span>
-                      			${requestScope.student.phone}
+                      			${student.phone}
                       		</p>
                       </li>
                     </ul>
@@ -47,11 +47,11 @@
                     <div class="col-md-6">  
                       <p>
                       	<span class="glyphicon glyphicon-calendar one" style="width:50px;"></span>
-                      	${requestScope.student.regdate}
+                      	${student.regdate}
                       </p>
                       <p id="title" >
                       	<span class="glyphicon glyphicon-blackboard" style="width:50px;"></span>
-                      	${requestScope.student.subjects}
+                      	${student.subjects}
                       </p>
                    
                       <%-- <div class="col-sm-5 col-xs-6 tital " >Gender:</div>

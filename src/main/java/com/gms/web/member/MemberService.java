@@ -11,12 +11,12 @@ import com.gms.web.command.CommandDTO;
 @Component
 public interface MemberService {
 	public Map<String, Object> login(CommandDTO bean); /*client를 */
-	public String addMember(Map<String, Object> map);
+	public int addStudent(Map<?, ?>map);
 	public List<?> list(CommandDTO cmd);
 	public String count();
 	public StudentDTO findById(CommandDTO cmd);
 	public List<?> findByName(CommandDTO cmd);
-	public String modifiyProfile(MemberDTO bean);
+	public int modifiyProfile(MemberDTO bean);
 	public String removeUser(CommandDTO cmd);
 	
 }

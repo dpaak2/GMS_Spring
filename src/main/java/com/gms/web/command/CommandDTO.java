@@ -8,7 +8,7 @@ import com.gms.web.constant.Path;
 import com.gms.web.member.MemberDTO;
 
 @Lazy @Component
-public class CommandDTO implements Commandable {
+public class CommandDTO {
 	protected String dir,action, page,pageNumber,search, view,column,startRow,endRow;
 	protected MemberDTO member;
 	public String getStartRow() {
@@ -89,7 +89,6 @@ public class CommandDTO implements Commandable {
 		return view;
 	}
 
-	@Override
 	public void process() {
 		/*VIEW를 정해준다*/
 		this.view=(dir.equals("home"))?

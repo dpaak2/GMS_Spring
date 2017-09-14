@@ -10,7 +10,7 @@ import com.gms.web.member.StudentDTO;
 
 @Repository
 public interface MemberMapper {
-	public int insertMember(Map<?, ?> map);
+	public int insert(MemberDTO member);
 	public List<?> selectAll(CommandDTO cmd);
 	public String count();
 	public StudentDTO selectById(CommandDTO cmd);

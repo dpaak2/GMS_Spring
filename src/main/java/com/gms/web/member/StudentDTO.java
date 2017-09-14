@@ -6,7 +6,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentDTO {
 	private String id,name,ssn,regdate,
-	phone,email,subjects;
+	phone,email,subjects,password;
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	private int num;
 	public int getNum() {
 		return num;

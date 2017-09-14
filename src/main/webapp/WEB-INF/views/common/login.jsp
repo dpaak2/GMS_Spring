@@ -10,7 +10,7 @@
             <legend>로그인</legend>
             <span class="login-span">ID</span> 
             <input type="text" id="input_id" name="id" /><br /> <label>PASSWORD</label>
-            <input type="password"id="input_password" name="pass" /><br />
+            <input type="password"id="input_password" name="password" /><br />
             <br /> 
             <input type="reset" value="CANCEL" />
      		<input type="hidden" name="action" value="login">

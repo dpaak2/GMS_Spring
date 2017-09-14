@@ -268,6 +268,7 @@ app.navbar = (function() {
 app.member = (function() {
    var init = function() {
       onCreate();
+      add();
    };
    var onCreate = function() {
       /* 기능 */
@@ -277,11 +278,11 @@ app.member = (function() {
          /* update하면 그 정보를 저장해라 */
          /* id,phone,email,title */
          alert('넘어가는 ID' + $('#id').text());
-         sessionStorage.setItem('id', $('#id').text());
+         /*sessionStorage.setItem('id', $('#id').text());
          sessionStorage.setItem('name', $('#name').text());
          sessionStorage.setItem('phone', $('#phone').text());
          sessionStorage.setItem('email', $('#email').text());
-         sessionStorage.setItem('title', $('#title').text());
+         sessionStorage.setItem('title', $('#title').text());*/
          controller.moveTo('member', 'member_update');
       });
 
@@ -293,21 +294,31 @@ app.member = (function() {
    };
    var setContentView = function() {
       /* 화면 */
-      alert('member detail');
+      
    };
+   var add =  function() {
+      $('#join_yes_button').on('click',function(){
+        alert('등록완료');  
+         $('#join_form').attr('action', app.path.ctx() + "/member/add");
+         $('#join_form').attr('method', 'post');
+        return true;
+         });
+     };
+
+   
    return {
+      add : add,
       init : init,
       list : list
    };
 })();
 
-/************************************************************************
- *  9.controller 
- *  ********************************************************************/
+/* controller */
 app.controller = (function() {
    /* 기능들의 집합 이다 / 기능은 public 이다 */
    var init = function() {
-
+      updateStudent();
+      add();
    };
 
    var moveTo = function(x, y) {
@@ -319,13 +330,14 @@ app.controller = (function() {
          location.href = app.path.ctx()+"/"+x+"/"+y;
       };
 
- 
-   var updateStudent = function(id, email) {
-      alert('수정할  id: ' + id);
-      location.href = app.path.ctx()
-            + "/member.do?action=update&page=member_update&id=" + id
-            + "&email=" + email;
-   };
+   var updateStudent = function() {
+      $('#confirmBtn').on('click',function(){
+         alert('업데이트');  
+      $('#updateForm').attr('action', app.path.ctx() + "/member/update");
+      $('#updateForm').attr('method', 'post');
+     return true;
+      });
+  };
    var deleteStudent = function(id) {
       alert('삭제할 아이디: ' + id);
       location.href = app.path.ctx()+"/member/delete/"+id;
@@ -341,7 +353,7 @@ app.controller = (function() {
          location.href = app.path.ctx()+ "/member/search/"+search;
      
    }
-
+  
    var logout = function(dir, page) {
       location.href = app.ctx() + "/" + dir + ".do?action=logout&page="
             + page;

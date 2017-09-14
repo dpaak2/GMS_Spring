@@ -12,10 +12,10 @@ public class MemberDTO{
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPass() {
+	public String getPassword() {
 		return password;
 	}
-	public void setPass(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 	public String getSsn() {

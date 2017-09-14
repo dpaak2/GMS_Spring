@@ -33,11 +33,11 @@ public class AuthController {
 	@RequestMapping(value="/lgoin", method=RequestMethod.POST)
 	public String login(
 			@RequestParam("id") String id, 
-			@RequestParam("pass") String pass,
+			@RequestParam("password") String pass,
 			Model model) {
 		logger.info("AuthController!:::::login-- {}","진입" );
 		logger.info("id",id);
-		logger.info("pass",pass);
+		logger.info("password",pass);
 		
 		/*의미론적인것이 아닌 가독성에 의한 선택이 필요 */
 		cmd.setSearch(id);

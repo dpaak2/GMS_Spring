@@ -24,18 +24,28 @@ meta.common = (function(){
 })();
 
 meta.index=(function(){
+	/*instance variable*/
+	var $wrapper;
+
 	var init=function(){
 		onCreate();
 	};
 	/*기능*/
 	var onCreate=function(){
+		
 		setContentView();
+		$wrapper=$('#wrapper');  
+		/*eventHandler,  call back 함수이다! */
+		$('#button').on('click',function(){
+			alert('button click!!! yeah!!');
+			$wrapper.empty();
+		});
 	};
 	/*속서*/
 	var setContentView=function(){
-		var wrapper=$('#wrapper');
 		/*jquery*/
-		var image=$('<img/>',  /*--> DOM이다 */
+		$wrapper=$('#wrapper'); 
+		var $image=$('<img/>',  /*--> DOM이다 */
 		    {
 			  id:'loading',
 			  src: img()+'/loading.gif'
@@ -43,10 +53,10 @@ meta.index=(function(){
 		);
 		
 		
-		image.appendTo($('#wrapper'));
+		$image.appendTo($wrapper);
 		//$('#wrapper').empty();
 		
-		var button=$('<input/>',
+		var $button=$('<input/>',
 				{
 					id:'button',
 					type:'button',
@@ -54,8 +64,8 @@ meta.index=(function(){
 				}
 		);
 		
-		//button.appendTo($('#wrapper'));
-		$('#wrapper').append(button);
+		$button.appendTo($wrapper);
+		//$('#wrapper').append(button);
 		
 	};
 	return {

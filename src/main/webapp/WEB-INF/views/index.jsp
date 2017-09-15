@@ -11,11 +11,13 @@
    <script src="${path.js}/meta.js"></script> 
 </head>
 <body>
-	<h1>
-	    welcome AJAX!!
-	</h1>
+	<div id="wrapper">
+		
+	</div>
 </body>
 <script>
+
+
 meta.common.init('${path.ctx}');
 </script>
 </html>

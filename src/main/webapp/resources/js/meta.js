@@ -7,11 +7,10 @@ meta.common = (function(){
       alert('session 저장되기 전 : '+ctx);
       meta.session.init(ctx);
       alert('session 저장 ctx : '+$$());  /*즉시실행함수라 함수 표시 ->() 가 있어야 한다 !!*/
-      alert('session 저장 js : '+p.js());
-      alert('session 저장 css: '+p.css());
-      alert('session 저장 img: '+p.img());
-    
-      
+      alert('session 저장 js : '+js());
+      alert('session 저장 css: '+css());
+      alert('session 저장 img: '+img());
+    meta.index.init();
    };
    var onCreate=function(){
       setContextPath();
@@ -24,14 +23,53 @@ meta.common = (function(){
    };
 })();
 
+meta.index=(function(){
+	var init=function(){
+		onCreate();
+	};
+	/*기능*/
+	var onCreate=function(){
+		setContentView();
+	};
+	/*속서*/
+	var setContentView=function(){
+		var wrapper=$('#wrapper');
+		/*jquery*/
+		var image=$('<img/>',  /*--> DOM이다 */
+		    {
+			  id:'loading',
+			  src: img()+'/loading.gif'
+		    }
+		);
+		
+		
+		image.appendTo($('#wrapper'));
+		//$('#wrapper').empty();
+		
+		var button=$('<input/>',
+				{
+					id:'button',
+					type:'button',
+					value:'click!'
+				}
+		);
+		
+		//button.appendTo($('#wrapper'));
+		$('#wrapper').append(button);
+		
+	};
+	return {
+		init:init
+	};
+})();
 
 
 meta.session = (function(){
    var init = function(ctx){
       sessionStorage.setItem('ctx',ctx);
-      sessionStorage.setItem('js','/resources/js');
-      sessionStorage.setItem('img','/resources/img');
-      sessionStorage.setItem('css','/resources/css');
+      sessionStorage.setItem('js',ctx+'/resources/js');
+      sessionStorage.setItem('img',ctx+'/resources/img');
+      sessionStorage.setItem('css',ctx+'/resources/css');
    };
    var getPath = function(x){
       return sessionStorage.getItem(x);
@@ -47,10 +85,8 @@ meta.session = (function(){
 
 
 /*path*/
-var $$ = function(){ return meta.session.getPath('ctx');};
-var p=(function(){
+   var $$ = function(){ return meta.session.getPath('ctx');};
   var js = function(){ return meta.session.getPath('js');};
   var css = function(){return meta.session.getPath('css');};
   var img = function(){return meta.session.getPath('img');};
-  return{ js : js, css : css, img : img };
-})();
+

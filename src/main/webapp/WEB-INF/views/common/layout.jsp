@@ -17,17 +17,14 @@
 <div id="wrapper">
 	<header>
 		<div id="header">
-			<tiles:insertAttribute name="header"/>
 		</div>
 	</header>
 	<section>
 		<article id="content">
-			<tiles:insertAttribute name="content"/>
 		</article>
 	</section>
 	<footer>
 		<div id="footer">
-			<tiles:insertAttribute name="footer"/>
 		</div>
 	</footer>
 </div>

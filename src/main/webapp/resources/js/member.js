@@ -18,7 +18,6 @@ app.path = (function() { /* god 을 만드는것 *//* c: controller */
       onCreate(); /* 내부에서는 객체가 아니라 method호출 */
    };
    var onCreate = function() { /* c: controller */
-      alert('1');
       setContentView();
       location.href =ctx() + "/auth/login_view"; /* 내부는 method 호출이다 */
     

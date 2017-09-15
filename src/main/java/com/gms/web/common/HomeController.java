@@ -19,7 +19,7 @@ public class HomeController {
 		logger.info("Welcome home! The client  {}." ,"ENTERED!! ");
 		/*tiles가 먼저 먹게 하기 위해서 이렇게 설정해야 한다 */
 		model.addAttribute("path", PathFactory.create());
-		return "public:common/home.tiles";
+		return "index";
 	}
 	
 }

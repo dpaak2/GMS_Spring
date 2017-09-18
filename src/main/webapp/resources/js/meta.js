@@ -46,6 +46,10 @@ meta.index=(function(){
 			$wrapper.empty();
 			meta.ui.navbar();
 			meta.ui.arithmetic();
+			$('#result').on('click',function(){
+				alert('결과');
+				$('#result_btn').text('결과 : '+ meta.algo.arithmetic($('#start').val(), $('#end').val()));
+			});
 			$('#arithBtn').on('click',function(){
 				alert('등차수열 클릭!');
 				$('#content').empty();
@@ -54,12 +58,19 @@ meta.index=(function(){
 					alert('결과');
 					$('#result_btn').text('결과 : '+ meta.algo.arithmetic($('#start').val(), $('#end').val()));
 				});
-				
 			});
 			$('#switchBtn').on('click',function(){
 				alert('스위치 수열 클릭!');
 				$('#content').empty();
-				$('#content').append();
+				meta.ui.switchSeries();
+				$('#result_btn').on('click',function(){
+					alert('결과');
+					var start =$('#start').val();
+					var end = $('#end').val();
+					alert('시작 값 : ' + start);
+					alert('끝 값' + end);
+					$('#result').text('결과: ' +meta.algo.switchSeries(start,end));
+				});
 			});
 			$('#geoBtn').on('click',function(){
 				alert('geometric 클릭!');
@@ -182,8 +193,16 @@ meta.algo = {
 		 }
 		 return sum;
 	 },
-	 swutcgSerues : function(){
-		 /*스위치 함수*/
+	 switchSeries : function(s,e){
+		var sum = 0;
+		var sw = 1;
+		var start = s*1;
+		var end =e*1;
+		for(i=start;i<=end;i++){
+			sum = sum + (sw * i);
+			sw = sw * -1;
+		}
+		return sum;
 	 }
 };
 
@@ -208,7 +227,7 @@ meta.ui=(function(){
 		 +'</br>'
 		 +'<div id="result_btn"></div>'
 		 +'</div>';
-		 $wrapper.after(content);
+		 $wrapper.append(content);
 		 $('#start_txt').after(meta.comp.input(
 			 {
 				 type : 'text',
@@ -233,11 +252,29 @@ meta.ui=(function(){
 	};
 	
 	var switchSeries= function(){
-		'<div id="ui">'
-		 +'<h1>switch수열의 합</h1>'
-	 +'<span id="startVal">시작 값 : </span>'
-	 +'</br> <span id="endVal">끝 값: </span>'
-	 +'</div>';
+		var content='<div id="content">'
+		 +'<h1> switch수열의 합 </h1>'
+			 +'<span id="start_txt">시작 값 : </span> </br>'
+			 +'</br> <span id="end_txt">끝 값: </span> </br>'
+			 +'<div id="result"></div>'
+		+'</div>';
+		
+		  $wrapper.append(content);
+		  $('#start_txt').after(meta.comp.input({
+			  type : 'text',
+			  id : 'start',
+			  placeholder : '시작 값'
+		  }));
+		  $('#end_txt').after(meta.comp.input({
+			  type : 'text',
+			  id : 'end',
+			  placeholder :'끝 값'
+		  }));
+		  $('#result').before(meta.comp.input({
+			  type :'button',
+			  id : 'result_btn',
+			  value : 'answer'
+		  }));
 	};
 
 	var navbar=function(){

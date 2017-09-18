@@ -39,7 +39,7 @@ meta.index=(function(){   /*생성자*/
 		$('#button').on('click',function(){
 			alert('button click!!! yeah!!');
 			$wrapper.empty();
-			meta.login.init();
+			meta.auth.init();
 		});
 	};
 	/*속성*/
@@ -57,14 +57,14 @@ meta.index=(function(){   /*생성자*/
 		$image.appendTo($wrapper);
 		//$('#wrapper').empty();
 		
-		var $button=$('<input/>',
+		var $btn=$('<input/>',
 				{
 					id:'button',
 					type:'button',
 					value:'click!'
 				}
 		);
-		$button.appendTo($wrapper);
+		$btn.appendTo($wrapper);
 		//$('#wrapper').append(button);
 		
 	};
@@ -73,46 +73,79 @@ meta.index=(function(){   /*생성자*/
 	};
 })();
 
-meta.login=(function(){
+
+/*
+ * meta.auth
+ * */
+meta.auth=(function(){
+	var $wrapper,img; 
 	var init=function(){
 		onCreate();
 	};
 	
 	var onCreate=function(){
 		setContentView();
+	
 	};
 	
 	var setContentView=function(){
-	
-		'<div id="wrapper">'
-		+'<div id="container">'
-			+'<img src="${img}/login.png" alt="" /><br />'
-			+'<mark style="color: red;">*ID는 숫자포함 8자 이내</mark><br />'
-		+'<form id="login_box" name="login_box" >'
-		         +'<!--do 서블릿  -->'
-		         +'<fieldset class="form-edit">'
-		            +'<legend>로그인</legend>'
-		            +'<span class="login-span">ID</span>' 
-		            +'<input type="text" id="input_id" name="id" /><br /> <label>PASSWORD</label>'
-		            +'<input type="password"id="input_password" name="password" /><br />'
-		            +'<br />' 
-		            +'<input type="reset" value="CANCEL" />'
-		     		+'<input type="hidden" name="action" value="login">'
-		            +'<input type="hidden" name="page" value="main">'
-		            +'<input type="submit" id="loginBtn" value="로그인"  class="submit-pink">'
-		         +'</fieldset>'
-		      +'</form>'
-		      +'<div style="text-align: center; width: 100%; height: 50px;">'
-		      +'<h4 style="font-size: 20px; color: red;">${message}</h4>'
-		      +'</div>'
-		+'</div>'
-		
+	  $wrapper=$('#wrapper');
+	  img=$$('i');
+	  loginView();
 	};
+	var loginView=function(){
+	var ui=	'<div id="container">'
+		+'<img src="'+img+'/login.png" alt="" /><br />'
+		+'<mark style="color: red;">*ID는 숫자포함 8자 이내</mark><br />'
+	   +'<div id="login_box" name="login_box" >'
+	         +'<!--do 서블릿  -->'
+	         +'<fieldset class="form-edit">'
+	            +'<legend>로그인</legend>'
+	            +'<span class="login-span">ID&nbsp;</span>' 
+	            +'<input type="text" id="input_id" name="id" /><br /> <label>PASSWORD</label>'
+	            +'<input type="password"id="input_password" name="password" /><br />'
+	            +'<br />' 
+	         +'</fieldset>'
+	      +'</div>'
+	      +'<div style="text-align: center; width: 100%; height: 50px;">'
+	      +'<h4 style="font-size: 20px; color: red;">${message}</h4>'
+	  +'</div>';
+		
+		$wrapper.append(ui);
+		$('#login_box').append( meta.comp.button({
+			type:'button',
+			id : 'cancel_btn',
+			value : '취소' 			
+		}));
+		
+		$('#login_box').append( meta.comp.button({
+			type:'button',
+			id : 'login_btn',
+			value : '로그인' 			
+		}));
+	
+	};
+	
 	
 	return {
-		init:init
+		init:init,
+		loginView:loginView
 	};
 })();
+
+
+/*
+ * meta.component
+ * 부품을 만드는것*/
+meta.comp= /*객체 literal 생성방식*/
+
+	{
+		button:function(json){
+			return $('<input/>',json);
+			//'<input type="button" id="'+ i +'" value="'+ v +'"/>';
+		}
+	};
+
 
 
 
@@ -122,23 +155,20 @@ meta.login=(function(){
  * context 경로를 만든것 ! 
  * */
 
-meta.session = (function(){
-   var init = function(ctx){
-	   alert('세션에 들어온 ctx::'+ctx);
-      sessionStorage.setItem('x',ctx);
-      sessionStorage.setItem('j',ctx+'/resources/js');
-      sessionStorage.setItem('i',ctx+'/resources/img');
-      sessionStorage.setItem('c',ctx+'/resources/css');
+meta.session = 
+   {
+      init : function(ctx){
+   	   alert('세션에 들어온 ctx::'+ctx);
+       sessionStorage.setItem('x',ctx);
+       sessionStorage.setItem('j',ctx+'/resources/js');
+       sessionStorage.setItem('i',ctx+'/resources/img');
+       sessionStorage.setItem('c',ctx+'/resources/css');
+    },
+      getPath :  function(x){
+          return sessionStorage.getItem(x);
+      }
    };
-   var getPath = function(x){
-      return sessionStorage.getItem(x);
-   };
-   
-   return{
-      init : init,
-      getPath : getPath
-   }
-})();
+
 
 
 

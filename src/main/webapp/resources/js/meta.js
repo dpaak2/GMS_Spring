@@ -23,6 +23,11 @@ meta.common = (function(){
    };
 })();
 
+
+
+/*
+ * meta.index
+ * */
 meta.index=(function(){   /*생성자*/
 	/*instance variable*/
 	/*java의 필드에 넣는것과 동일하게 해야 한다 */
@@ -35,11 +40,15 @@ meta.index=(function(){   /*생성자*/
 	
 		setContentView();
 		$wrapper=$('#wrapper');  
+		var cal=meta.algo.calculate().val();
 		/*eventHandler,  call back 함수이다! */
 		$('#button').on('click',function(){
 			alert('button click!!! yeah!!');
 			$wrapper.empty();
-			meta.auth.init();
+			meta.ui.arithmetic();
+			//meta.auth.init();
+			$wrapper.append(meta.algo.arithmetic());
+		
 		});
 	};
 	/*속성*/
@@ -55,7 +64,7 @@ meta.index=(function(){   /*생성자*/
 		);
 		
 		$image.appendTo($wrapper);
-		//$('#wrapper').empty();
+		$('#wrapper').empty();
 		
 		var $btn=$('<input/>',
 				{
@@ -72,6 +81,7 @@ meta.index=(function(){   /*생성자*/
 		init:init
 	};
 })();
+
 
 
 /*
@@ -101,7 +111,7 @@ meta.auth=(function(){
 	         +'<!--do 서블릿  -->'
 	         +'<fieldset class="form-edit">'
 	            +'<legend>로그인</legend>'
-	            +'<span class="login-span">ID&nbsp;</span>' 
+	            +'<span class="login-span">ID &nbsp;</span>' 
 	            +'<input type="text" id="input_id" name="id" /><br /> <label>PASSWORD</label>'
 	            +'<input type="password"id="input_password" name="password" /><br />'
 	            +'<br />' 
@@ -112,7 +122,7 @@ meta.auth=(function(){
 	  +'</div>';
 		
 		$wrapper.append(ui);
-		$('#login_box').append( meta.comp.button({
+		$('#input_id').after( meta.comp.button({
 			type:'button',
 			id : 'cancel_btn',
 			value : '취소' 			
@@ -133,6 +143,43 @@ meta.auth=(function(){
 	};
 })();
 
+
+/*
+ * meta.algo*/
+
+meta.algo = {
+	/*1부터 100까지 등차수열의 합 */
+
+ arithmetic: function(){
+	 var sum=0;
+
+ }
+};
+
+
+/*
+ * meta.ui
+ * */
+
+meta.ui=(function(){
+	var $wrapper,img,ctx,js,css;
+	var init = function(){
+		$wrapper = $('#wrapper');
+	};
+	var arithmetic=function(){
+
+		 var ui= '<div id="ui">'
+			 +'<h1>arithmetic   등차수열의 합</h1>'
+		 +'<span id="startVal">시작 값 : </span>'
+		 +'</br> <span id="endVal">끝 값: </span>'
+		 +'</br> <span id="result" style="red">result: </span>'
+		 +'<button id="result" value="결과보기"/>'
+		 +'<span>result: </span> </div>';
+	};
+	return {
+		arithmetic:arithmetic
+	};
+})();
 
 /*
  * meta.component
@@ -171,12 +218,5 @@ meta.session =
 
 
 
-
-
 /*path*/
- // var $$ = function(){ return meta.session.getPath('ctx');};
- // var js = function(){ return meta.session.getPath('js');};
- // var css = function(){return meta.session.getPath('css');};
- // var img = function(){return meta.session.getPath('img');};
-
   var $$= function(x){return meta.session.getPath(x);};

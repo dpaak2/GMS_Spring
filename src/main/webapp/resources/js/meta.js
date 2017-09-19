@@ -21,10 +21,157 @@ meta.common = (function() {// 최상위 브라우저 종료 저장되는곳
    };
 })();
 
+// meta.navbar //
+meta.navbar = (function() {
+      var algo ,js;
+      var init = function() {
+         onCreate();
+         js=$$('j');
+         algo =js+'/algo.js';
+         
+      };
+      var onCreate = function() { /* controller */
+         /* 자바에서 받은것 모델에서 가져온 데이터의 제어는 이곳에서 한다 */
+         setContentView();
+       
+         $('.dropdown-menu a').eq(0).on('click', function() {
+            app.controller.moveTo('member', 'member_add');
+         });
+         $('.dropdown-menu a').eq(1).on('click', function() {
+          
+            app.member.list(1);
+            /* app.controller.list('member','member_list','1'); */
+         });
+         $('.dropdown-menu a').eq(2).on('click', function() {
+            app.controller.moveTo('member', 'member_detail');
+            /* app.controller.detailStudent(prompt('조회ID')); */
+         });
+
+         $('.dropdown-menu a').eq(3).on('click', function() {
+            app.controller.moveTo('member', 'member_update');
+         });
+         $('.dropdown-menu a').eq(4).on('click', function() {
+            app.controller.deleteTarget('cho','member', 'member_delete');
+         });
+         $('.dropdown-menu a').eq(5).on('click', function() {
+            app.controller.moveTo('grade','grade_add');
+         });
+         $('.dropdown-menu a').eq(6).on('click', function() {
+            app.controller.moveTo('grade','grade_list');
+         });
+         $('.dropdown-menu a').eq(7).on('click', function() {
+            app.controller.moveTo('grade','grade_detail');
+         });
+         $('.dropdown-menu a').eq(8).on('click', function() {
+            app.controller.moveTo('grade','grade_update');
+         });
+         $('.dropdown-menu a').eq(9).on('click', function() {
+            app.controller.moveTo('grade','grade_delete');
+         });
+         $('.dropdown-menu a').eq(10).on('click', function() {
+             app.controller.moveTo('board','board_add');
+          });
+         $('.dropdown-menu a').eq(11).on('click', function() {
+             app.controller.moveTo('board','board_list');
+          });
+         $('#arithBtn').click(()=>{
+               alert('arithBtn 클릭');
+               $('#content').remove();
+               meta.ui.arithmetic(); 
+               $('h1').html('Arithmetic series').css('text-align','center').css('font-weight','bold');
+               $('#resultBtn').click(()=> {
+            	   $.getScript(algo,(x1,x2)=>{
+            		   $('#result').text('결과 : ' + series.arithmetic(
+                               $('#start').val(),
+                               $('#end').val()
+                         ));
+                   });
+               });
+            });
+         
+         $('#switchBtn').click(function(){
+               alert('switchBtn 클릭');
+               $('#content').remove();
+               meta.ui.arithmetic();            
+               $('h1').html('스위치수열의 합').css('text-align','center').css('font-weight','bold');
+               $('#start').val('1');
+               $('#end').val('100');
+               $('#resultBtn').click(()=>{
+            	   $.getScript(algo,()=>{
+            		   $('#result').text('결과 : ' + series.switchSeries());
+            	   });
+               });
+            });
+         
+         $('#diffBtn').on('click',function(){
+               alert('geoBtn 클릭');
+               $('#content').remove();
+               meta.ui.arithmetic();
+               $('h1').html('등비수열의 합').css('text-align','center').css('font-weight','bold');
+               $('#start').val('1');
+               $('#resultBtn').click(()=>{
+            	   $.getScript(algo,()=>{
+            		   $('#result').text('결과 : ' + series.diffSeries($('#end').val()));
+            	   });
+               });
+            });
+         
+            $('#factBtn').on('click',function(){
+               alert('facthBtn 클릭');
+               $('#content').remove();
+               meta.ui.arithmetic();
+               $('h1').html('펙토리얼').css('text-align','center').css('font-weight','bold');
+               $('#start').val('1');
+               $('#resultBtn').click(()=>{
+            	   $.getScript(algo,function(){
+            		   $('#result').text('결과:' +  series.factorial($('#end').val()));
+            	   });
+               });
+            });
+            
+            $('#fiboBtn').on('click',function(){
+               alert('fiboBtn 클릭');
+               $('#content').remove();
+               $.getScript(algo,function(){
+            	   series.fibonacci('헬로우 피보');
+               });
+               meta.ui.arithmetic();
+               $('h1').html('피보나치').css('text-align','center').css('font-weight','bold');;
+               $('#resultBtn').click(()=>{
+                   alert('피보나치 클릭!');
+                   $.getScript(algo,function(){
+                	   $('#result').text('결과:' + series.fibonacci());                	   
+                   });
+               });
+            });
+        
+         
+
+      };
+      var setContentView = function() { /* view */
+            var $u1 = $("#main_ul_stu");
+            var $u2 = $("#main_ul_grade");
+            var $u3 = $("#main_ul_board");
+            $u1.addClass("list-group");
+            $u2.addClass("list-group");
+            $u3.addClass("list-group");
+
+         };
+         /* closure */
+         return {
+            init : init
+         };
+      })();
+
+
+/*meta.index*/
 meta.index = (function() {
+	var algo,js;
    var init = function() {
       onCreate();
       meta.ui.init();
+      js=$$('j');
+      algo = js+'/algo.js';
    };
    var onCreate = function() {
       setContentView();
@@ -32,63 +179,17 @@ meta.index = (function() {
          $wrapper.empty();
          // meta.auth.init();
          meta.ui.navbar();
+         meta.navbar.init();
          meta.ui.arithmetic();
-        
-         $('#arithBtn').on('click',function(){
-            alert('arithBtn 클릭');
-            $('#content').remove();
-            meta.ui.arithmetic(); 
-            $('#resultBtn').on('click', function() {
-               $('#result').text('결과 : ' + meta.algo.arithmetic(
-                     $('#start').val(),
-                     $('#end').val()
-               ));
-            });
+         $('h1').html('Arithmetic series').css('text-align','center').css('font-weight','bold');
+         $('#resultBtn').click(()=> {
+      	   $.getScript(algo,(x1,x2)=>{
+      		   $('#result').text('결과 : ' + series.arithmetic(
+                         $('#start').val(),
+                         $('#end').val()
+                   ));
+             });
          });
-         $('#switchBtn').on('click',function(){
-            alert('switchBtn 클릭');
-            $('#content').remove();
-            meta.ui.arithmetic();            
-            $('h1').html('스위치수열의 합');
-            $('#start').val('1').attr('readonly',true);
-            $('#end').val('100').attr('readonly',true);
-            $('#resultBtn').click(()=>{
-               $('#result').text('결과 : ' + meta.algo.switchSeries());
-            });
-         });
-         $('#geoBtn').click(()=>{
-            alert('geoBtn 클릭');
-            $('#content').remove();
-            meta.ui.arithmetic();
-            $('h1').html('계차수열 ');
-            $('#start').val('1').attr('readonly',true);
-            $('#resultBtn').click(()=>{
-            	$('#result').text('결과 : '+meta.algo.geoSeries($('#end').val()));
-                });
-            });
-            
-         $('#factBtn').click(()=>{
-            alert('factBtn 클릭');
-            $('#content').remove();
-            meta.ui.arithmetic();
-            $('h1').html('팩토리얼 수열');
-            $('#start').val('1').attr('readonly',true);
-            $('#resultBtn').click(()=>{
-            	$('#result').text('결과 : '+meta.algo.factorial($('#end').val()));
-            });
-         });
-         $('#fiboBtn').on('click',function(){
-            alert('fiboBtn 클릭');
-            $('#content').remove();
-            meta.ui.arithmetic();
-            $('h1').html('피보나치 수열');
-            $('#start').val('1').attr('readonly',true);
-            $('#resultBtn').click(()=>{
-            	$('#result').text('결과 :'+meta.algo.fibonacci($('#end').val()));
-            });
-         });
-                  
-      
       });
    };
    var setContentView = function() {
@@ -99,9 +200,7 @@ meta.index = (function() {
          id : 'loading',
          src : img + '/loading.gif'
       });
-      /* image.appendTo($('#wrapper')); */
       $wrapper.append($image);
-      // $('#wrapper').empty();
       var $btn = $('<input/>', {
          id : 'btn',
          type : 'button',
@@ -113,75 +212,7 @@ meta.index = (function() {
       init : init
    };
 })();
-meta.algo = {
-   arithmetic : (s,e) =>{
-      var sum = 0;
-      var start = s * 1;
-      var end = e * 1;
-      for (var i = start; i <= end; i++) {
-         sum += i;
-      }
-      return sum;
-   },
-   switchSeries : ()=>{
-      var sum = 0;
-      var i=0;
-      var sw = 0;
-      do{
-         i++;
-         if(sw==0){
-            sum+=i;
-            sw=1;
-         }else{
-            sum-=i;
-            sw=0;
-         }
-      }while(i<100);
-      return sum;   
-   },
-   geoSeries :x =>{
-	   var i,j,k;
-	   i=0;
-	   j=0;
-	   k=0;
-	   do{
-		   i++;
-		   j+=i;
-		   k+=j;
-	   }while(i<x*1);
-	   return k;
-   },
-   factorial : x=>{
-	   var i,k,j;
-	   i= 1;
-	   k=1;
-	   j=1;
-	   do{
-		   i++;
-		   j*=i;
-		   k+=j;
-	   }while(i<x*1);
-	   return k;
-   },
-   fibonacci :x=>{
-	   var hap,cnt ,c ;
-	   var a=1; var b =1;
-	   hap=2;
-	   cnt=2;
-	   while(true){
-		   c= a+b;
-		   hap +=c;
-		   cnt ++;
-		   if(cnt <x*1){
-			   a=b;
-			   b=c;
-		   }else{
-			 return hap;
-		   }
-	   }
-   }
-   
-};
+
 meta.auth = (function() {
    var $wrapper, ctx, img, js, css;
    var init = function() {
@@ -199,7 +230,7 @@ meta.auth = (function() {
    };
    var loginView = function() {
       var ui = '<div id="container">' + '<div id="login_box">' + '<img src="'
-            + img + '/login.jpg" alt="" /><br />'
+            + img + '/login.png" alt="" /><br />'
             + '<span id="login_id">ID</span>'
             + '<input type="text"  /> <br />'
             + '<span id="login_pass">PASSWORD</span>'
@@ -275,7 +306,7 @@ meta.ui = (function() {
                        +  '<ul id="navbar_ul_board"  class="dropdown-menu">'
                         +  '<li><a id="arithBtn">등차수열</a></li>'
                          +  '<li><a id="switchBtn">스위치수열</a></li>'
-                          + '<li><a id="geoBtn">등비수열</a></li>'
+                          + '<li><a id="diffBtn">등비수열</a></li>'
                            +'<li><a id="factBtn">팩토리얼</a></li>'
                            +'<li><a id="fiboBtn">피보나치</a></li>'
                          +'</ul>'
@@ -298,12 +329,15 @@ meta.ui = (function() {
       $('#start_txt').after(meta.component.input({
          type : 'text',
          id : 'start',
-         placeholder : '시작값'
+         placeholder : '시작값',
+         style :'background-color: yellow'
+            
       }));
       $('#end_txt').after(meta.component.input({
          type : 'text',
          id : 'end',
-         placeholder : '끝값'
+         placeholder : '끝값',
+            style :'background-color: yellow'
       }));
       $('#result').before(meta.component.input({
          type : 'button',
@@ -319,6 +353,8 @@ meta.ui = (function() {
       navbar : navbar
    };
 })();
+
+
 meta.component = {
    input : function(json) {
       return $('<input>', json);
@@ -339,3 +375,4 @@ meta.session = {
 var $$ = function(x){
    return meta.session.getPath(x);
 };
+

@@ -245,7 +245,8 @@
           <artifactId>aspectjweaver</artifactId>
           <version>1.8.10</version>
       </dependency>
-     
+      
+     <!-- jackson 오형제 -->
      <dependency>
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-databind</artifactId>

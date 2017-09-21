@@ -12,7 +12,8 @@ var introUI={
    +'</div>';
    },
    navbar : ()=>{
-      return '<nav class="navbar navbar-inverse">'
+      return 
+      '<nav class="navbar navbar-inverse">'
       +'  <div class="container-fluid">'
       +'    <div class="navbar-header">'
       +'      <a class="navbar-brand" href="#">GMS</a>'
@@ -98,9 +99,72 @@ var introUI={
       +'       <a id="logout" >로그아웃</a></span>'
       +'  </div>'
       +'</nav>';
+   },
+   
+board : ()=>{
+	return '<div id="board">'
+	+'<div style="width:90%;margin:20px auto;">'
+	+'<select id="searchOption" class="form-control" style="width:20%;float:left;margin-right:36px">'
+	+'<option value="searchByName" >작성자</option>'
+	+'<option value="searchByTitle">제목</option>'
+    +'</select>'
+    +'<div class="input-group" style="width:60%;float:left;margin-right:30px">'
+    +'<span id="searchBox" class="input-group-addon">SEARCH</span>'
+    +'</div>'
+    +'<input class="btn btn-primary" style="width:100px" type="submit"  value="SEARCH"/>'
+    +'</div>'
+    +'<div style="margin:20px 0" >'
+			+'<span> 총게시글수</span>'
+    +'</div>'
+    +'<table class="table table-hover" style="width:90%;margin:0 auto;">'
+		+'<tr class="hanbit-table tr">'
+		+'<td >NO</td>'
+			+'<td >제 목</td>'
+			+'<td >내 용</td>'
+			+'<td>작성자</td>'
+			+'<td>등록일</td>'
+			+'<td>조회수</td>'
+		+'</tr>'
+	+'<c:forEach var="article" items="${requestScope.list}">'
+		+'<tr>'
+			+'<td>${article.seqNo}</td>'
+		+'	<td><a href="${context}/board.do?action=detail&pageName=detail&seqNo=${article.seqNo}">${article.title}</a></td>'
+			+'<td><a href="${context}/board.do?action=detail&pageName=detail&seqNo=${article.seqNo}">${article.content}</a></td>'
+			+'<td>${article.writer}</td>'
+			+'<td><a href="${context}/board.do?action=detail&pageName=detail&seqNo=${article.seqNo}">${article.regiDate}</a></td>'
+			+'<td>${article.hitCount}</td>'
+		+'</tr>'
+	 +'</c:forEach>'	
+		+'</table>'                                                                                                                       
+		+'<nav aria-label="Page navigation" style="width:350px; margin:0 auto;">'
+	    +'  <ul class="pagination">'
+	    +'     <li><a onclick=""><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span></a></li>'
+	    +'    <li>'
+	    +'      <a onclick="" aria-label="Previous">'
+	    +'        <span aria-hidden="true">&laquo;</span>'
+	    +'      </a>'
+	    +'   </li>'
+	    +'        <li class="active"><a href="#" >1</a></li>'
+	    +'        <li><a href="#" onclick="">2</a></li>'
+	    +'        <li><a href="#" onclick="">3</a></li>'
+	    +'        <li><a href="#" onclick="">4</a></li>'
+	    +'        <li><a href="#" onclick="">5</a></li>'
+	    +'    <li>'
+	    +'      <a onclick="" aria-label="Next">'
+	    +'        <span aria-hidden="true">&raquo;</span>'
+	    +'      </a>'
+	    +'    </li>'
+	    +'    <li><a onclick=""><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span></a></li>'
+	    +'  </ul>'
+	    +'</nav>'
+	    +'</div>';
    }
 };
 var compUI={
+   br :()=>{return $('<br/>')},
+   div : x=>{return $('<div/>',{ id : x});},
+   h1 : x=>{return $('<h1/>',{id:x});},
+   span : x=>{return $('<span/>',{id:x});},
    image : (x,y)=>{
          return $('<img/>',
          {   
@@ -108,16 +172,11 @@ var compUI={
             src : y
          }); 
       },
-   input : (x,y)=>{
-      return $('<input/>',
-      {
-         id : x,
-         type : y
-      });
-   },
-   h1 : x=>{return $('<h1/>',{id:x});},
-   span : x=>{return $('<span/>',{id:x});},
-   div : x=>{return $('<div/>',{ id : x});}   
+   input : (x,y)=>{return $('<input/>'),{ id: x, type : y}},
+   iTxt : x=>{return $('<input/>',{ id : x, type : 'text'});},
+   aBtn :x=>{$('<a/>',{id :x , href :'#', role : 'button' })},
+   iBtn : x=>{$('<input/>'),{id: x, type: 'bytton'}}
+  
 }
 var algoUI={
    series : ()=>{

@@ -9,64 +9,29 @@ public class BoardServiceImpl implements BoardService {
 		return new BoardServiceImpl();
 	}
 	private BoardServiceImpl(){}
-	
 	@Override
-	public String addArticle(ArticleDTO bean) {
-		String addResult="";
+	public void post(Object o) {
+		// TODO Auto-generated method stub
 		
-		/*if(dao.insertArticle(bean).equals("1")){
-			addResult="등록이 완료 되었습니다.";
-		}else{
-			addResult="등록이 실패되었습니다.";
-		}
-		 */
-		return addResult;
 	}
-	
 	@Override
-	public String countArticles() {
-		
+	public List<Article> list(Object o) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public ArticleDTO findBySeq(int seqNo) {
-		
+	public Object getSeq(Object o) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public List<ArticleDTO> findById(String id) {
-		List<ArticleDTO> findByIdList =new ArrayList<>();
-	
-		/*findByIdList=dao.selectById(id);*/
-		return findByIdList;
+	public void put(Object o) {
+		// TODO Auto-generated method stub
+		
 	}
-
 	@Override
-	public String updateArticle(ArticleDTO update) {
-		String updateArticle="";
-	/*	updateArticle=(dao.updateArticle(update).equals("1"))?"update success":"update fail";*/
-		return updateArticle;
+	public void delete(Object o) {
+		// TODO Auto-generated method stub
+		
 	}
-
-	@Override
-	public String deleteArticle(int seq) {
-		String deleteArticle="";
-	
-		/*if(dao.deleteArticle(seq).equals("1")){
-			deleteArticle="성공적으로 삭제되었습니다.";
-		}else{
-			deleteArticle="delete failed";
-		}*/
-		return deleteArticle;
-	}
-
-	@Override
-	public List<ArticleDTO> listArticles() {
-		List<ArticleDTO> listArticles= new ArrayList<>();
-		/*listArticles=dao.listArticles();*/
-		return listArticles;
-	}
-
 }

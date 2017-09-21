@@ -23,28 +23,30 @@ meta.index=(function(){
          js=$$('j');
          temp=js+'/template.js';
          algo=js+'/algo.js';
-         $navbar=$('#navbar');
          $container=$('#container');
-         $content=$('#content');
          img=$$('i');
          ctx=$$('x');
+         $navbar=$('#navbar');
          onCreate();
       };
    var onCreate=function(){
-      $.getScript(temp,(x,y)=>{
+      $.getScript(temp,()=>{
          $container.append(compUI.div('content'));
+         $content=$('#content');
          $container.css('width','100%');
          $content.css({'width':'50%','margin':'0 auto'});
          $content.append(compUI.image('loading',img+'/loading.gif'));
          $content.append(compUI.div('direction'));
          $('#direction').css({'width':'50%','margin':'0 auto'});
          $('#direction').append(compUI.h1('h-btn'));
+         $hBtn= $('#h-btn');
          $('#h-btn').append(compUI.span('btn')).attr('display','inline');
          $('#btn').html('알고리즘').addClass('label label-default');
          $('#h-btn').append(compUI.span('btn2')).attr('display','inline');
          $('#btn2').html('회원 관리').addClass('label label-info').css({'margin-left' : '10px'});
-         $('#h-btn').append(compUI.span('btn3')).attr('display','inline');
-         $('#btn3').html('게시판').addClass('label label-warning').css({'margin-left' : '10px'});
+       
+       /*  $('#h-btn').append(compUI.span('bbsBtn')).attr('display','inline');
+         $('#bbsBtn').html('게시판').addClass('label label-warning').css({'margin-left' : '10px'});*/
          $('#btn').click(()=>{
             $container.empty();
             //meta.auth.init();   
@@ -56,14 +58,33 @@ meta.index=(function(){
         	 alert('회원관리');
         	 
          });
+         
          /*board*/
-         $('#btn3').click(()=>{
+         /*모듈형으로 코딩*/
+       
+         compUI.span('bbsBtn').html('게시판 관리')
+         .addClass('label label-warning')
+         .attr('display','inline')
+         .css({'margin-left' : '10px'})
+         .appendTo($hBtn);
+         $navbar.html(introUI.navbar());
+         
+        $('#bbsBtn').click(()=>{
         	 alert('게사판 가기');
-        	var url=ctx+'/get/grade/list';
-        	$.getJSON(url,x=>{
-        		alert('x msg is '+x.msg);
-        	});
+        		var url=ctx+'/get/board/list';
+        		 $navbar.html(introUI.navbar());
+        		            	$.getJSON(url,x=>{
+            		alert('x msg is '+x.msg);
+            		$container.html(introUI.board());
+            		$('#searchBox').after(compUI.iTxt('msg'));
+            		$('#msg').addClass('form-control').css({'width':'100%'});
+            		$('#msg').after(compUI.iBtn('goSearch'));
+            		$('#goSearch').addClass('btn btn-primary').css({'width':'100px'}).val('SEARCH');
+            		
+            	});
          });
+         
+      
       });
     };
    return {init:init};

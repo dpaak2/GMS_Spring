@@ -73,18 +73,75 @@ meta.index=(function(){
         	 alert('게사판 가기');
         		var url=ctx+'/get/board/list';
         		 $navbar.html(introUI.navbar());
-        		            	$.getJSON(url,x=>{
-            		alert('x msg is '+x.msg);
-            		$container.html(introUI.board());
+        		    $.getJSON(url,data=>{
+            		alert('x msg is '+data.msg);
+            		$container.html(bbsUI.board());
             		$('#searchBox').after(compUI.iTxt('msg'));
-            		$('#msg').addClass('form-control').css({'width':'100%'});
-            		$('#msg').after(compUI.iBtn('goSearch'));
+            		$('#msg').addClass('form-control').css({'width':'100%'}).attr('placeholder','search');
+            		$('#searchGroup').after(compUI.input('goSearch','submit'));
             		$('#goSearch').addClass('btn btn-primary').css({'width':'100px'}).val('SEARCH');
-            		
-            	});
+       /*     		JSON배열 코딩
+        			var a=[
+        				{
+        					a :1,
+        					b: '한국',
+        					c: '안녕',
+        					d :'길동',
+        					e :'2017-09-10',
+        					f : 10
+        					
+        				},
+        				{
+        					a :2,
+        					b: 'English',
+        					c: 'Hello',
+        					d :'Alice',
+        					e :'2017-09-10',
+        					f : 7
+        				},
+        				{
+        					a :3,
+        					b: '中国',
+        					c: '你好！',
+        					d :'李学生',
+        					e :'2017-09-10',
+        					f : 5
+        				},
+        				{
+        					a :4,
+        					b: 'thailand',
+        					c: 'สวัสดี',
+        					d :'lachaphat',
+        					e :'2017-09-10',
+        					f : 10
+        				},
+        				{
+        					a :5,
+        					b: 'spain',
+        					c: 'Holla!',
+        					d :'Diago',
+        					e :'2017-09-10',
+        					f : 10
+        				}
+        			];*/
+        			
+        			
+        			
+            		var tr;
+        				$.each(data.list,(i,j)=>{
+        					tr+= '<tr style="height : 25px;">'
+        						+'<td>'+j.articleSeq+'</td>'
+        						+'<td>'+j.id+'</td>'
+        						+'<td>'+j.title+'</td>'
+        						+'<td>'+j.content+'</td>'
+        						+'<td>'+j.regdate+'</td>'
+        						+'<td>'+j.hitCount+'</td>'
+        						+'</tr>';
+        				});
+        				console.log('tr :'+tr);
+        				$('#tabBody').html(tr);
+             });
          });
-         
-      
       });
     };
    return {init:init};

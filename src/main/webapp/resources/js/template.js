@@ -101,65 +101,41 @@ var introUI={
       +'</nav>';
    },
    
-board : ()=>{
-	return '<div id="board">'
-	+'<div style="width:90%;margin:20px auto;">'
-	+'<select id="searchOption" class="form-control" style="width:20%;float:left;margin-right:36px">'
-	+'<option value="searchByName" >작성자</option>'
-	+'<option value="searchByTitle">제목</option>'
-    +'</select>'
-    +'<div class="input-group" style="width:60%;float:left;margin-right:30px">'
-    +'<span id="searchBox" class="input-group-addon">SEARCH</span>'
-    +'</div>'
-    +'<input class="btn btn-primary" style="width:100px" type="submit"  value="SEARCH"/>'
-    +'</div>'
-    +'<div style="margin:20px 0" >'
-			+'<span> 총게시글수</span>'
-    +'</div>'
-    +'<table class="table table-hover" style="width:90%;margin:0 auto;">'
-		+'<tr class="hanbit-table tr">'
-		+'<td >NO</td>'
-			+'<td >제 목</td>'
-			+'<td >내 용</td>'
-			+'<td>작성자</td>'
-			+'<td>등록일</td>'
-			+'<td>조회수</td>'
-		+'</tr>'
-	+'<c:forEach var="article" items="${requestScope.list}">'
-		+'<tr>'
-			+'<td>${article.seqNo}</td>'
-		+'	<td><a href="${context}/board.do?action=detail&pageName=detail&seqNo=${article.seqNo}">${article.title}</a></td>'
-			+'<td><a href="${context}/board.do?action=detail&pageName=detail&seqNo=${article.seqNo}">${article.content}</a></td>'
-			+'<td>${article.writer}</td>'
-			+'<td><a href="${context}/board.do?action=detail&pageName=detail&seqNo=${article.seqNo}">${article.regiDate}</a></td>'
-			+'<td>${article.hitCount}</td>'
-		+'</tr>'
-	 +'</c:forEach>'	
-		+'</table>'                                                                                                                       
-		+'<nav aria-label="Page navigation" style="width:350px; margin:0 auto;">'
-	    +'  <ul class="pagination">'
-	    +'     <li><a onclick=""><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span></a></li>'
-	    +'    <li>'
-	    +'      <a onclick="" aria-label="Previous">'
-	    +'        <span aria-hidden="true">&laquo;</span>'
-	    +'      </a>'
-	    +'   </li>'
-	    +'        <li class="active"><a href="#" >1</a></li>'
-	    +'        <li><a href="#" onclick="">2</a></li>'
-	    +'        <li><a href="#" onclick="">3</a></li>'
-	    +'        <li><a href="#" onclick="">4</a></li>'
-	    +'        <li><a href="#" onclick="">5</a></li>'
-	    +'    <li>'
-	    +'      <a onclick="" aria-label="Next">'
-	    +'        <span aria-hidden="true">&raquo;</span>'
-	    +'      </a>'
-	    +'    </li>'
-	    +'    <li><a onclick=""><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span></a></li>'
-	    +'  </ul>'
-	    +'</nav>'
-	    +'</div>';
-   }
+
 };
+
+var bbsUI={
+		board : ()=>{
+			var tbl= '<div id="board">'
+			+'<div style="width:90%;margin:20px auto;">'
+			+'<select id="searchOption" class="form-control" style="width:20%;float:left;margin-right:36px">'
+			+'<option value="searchByName" >작성자</option>'
+			+'<option value="searchByTitle">제목</option>'
+		    +'</select>'
+		    +'<div id="searchGroup" class="input-group" style="width:60%;float:left;margin-right:30px">'
+		    +'<span id="searchBox" class="input-group-addon">SEARCH</span>'
+		    +'</div>'
+		    +'<input class="btn btn-primary" style="width:100px" type="submit"  value="SEARCH"/>'
+		    +'</div>'
+		    +'<div style="margin:20px 0" >'
+					+'<span> 총게시글수</span>'
+		    +'</div>'
+		     +'<table class="table table-hover" style="width:90%;margin:0 auto;">'
+		     +'<thead>'
+		     +'<tr class="hanbit-table tr">'
+		     var y=[{txt:'NO'},{txt:'작성자'},{txt:'제목'},{txt:'내 용'},{txt:'등록일'},{txt :'조회수'}];
+			 $.each(y,(i,j)=>{
+				 tbl+='<th text-align: center>' +j.txt+'</th>'
+			 });
+			 tbl+='</tr> <tbody id="tabBody">';
+			
+		
+				tbl+='</tbody></table></div>'
+					
+				return tbl;
+	   }
+};
+
 var compUI={
    br :()=>{return $('<br/>')},
    div : x=>{return $('<div/>',{ id : x});},

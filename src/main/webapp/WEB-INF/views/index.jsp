@@ -15,6 +15,7 @@
 	<div id="wrapper">
 		<div id="navbar"></div>
 		<div id="container"></div>
+		<span style="font-weight: bold;color: #5499ce"></span>
 	 </div>
 </body>
 <script>

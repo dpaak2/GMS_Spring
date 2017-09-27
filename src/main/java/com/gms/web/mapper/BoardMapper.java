@@ -5,11 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import com.gms.web.board.Article;
 import com.gms.web.command.Command;
+import com.gms.web.command.ResultMap;
 
 
 @Repository
 public interface BoardMapper {
-	public String countArticles(Command cmd);
+	public ResultMap countArticles(Command cmd);
 	public void insertArticle(Command cmd);
 	public List<Article> selectSome(Command cmd); 
 	public Article selectOne(Command cmd);

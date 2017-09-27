@@ -1,10 +1,11 @@
-/*namespace*/
-var meta=meta || {};
 
-/*meta.common*/
+
+var meta=meta || {};
 meta.common=(function(){
-   var init=function(ctx){
-      onCreate();
+  var init=function(ctx){
+
+     onCreate();
+     
       meta.session.init(ctx);
       meta.index.init();
    };
@@ -14,140 +15,268 @@ meta.common=(function(){
    var setContentView=function(){};
    return { init:init };
 })();
-
-/*meta.index*/
 meta.index=(function(){
    var $wrapper,$navbar,$container,ctx,img,js,css,
-      temp,algo,ctx;
+      temp,algo;
    var init=function(){
          js=$$('j');
+         ctx=$$('x');
          temp=js+'/template.js';
          algo=js+'/algo.js';
+         $navbar=$('#navbar');
          $container=$('#container');
          img=$$('i');
-         ctx=$$('x');
-         $navbar=$('#navbar');
+         $searchBtn=$('#searchBtn');
+         $tbody=$('#tbody');
+        
          onCreate();
       };
-   var onCreate=function(){
-      $.getScript(temp,()=>{
-         $container.append(compUI.div('content'));
-         $content=$('#content');
-         $container.css('width','100%');
-         $content.css({'width':'50%','margin':'0 auto'});
-         $content.append(compUI.image('loading',img+'/loading.gif'));
-         $content.append(compUI.div('direction'));
-         $('#direction').css({'width':'50%','margin':'0 auto'});
-         $('#direction').append(compUI.h1('h-btn'));
-         $hBtn= $('#h-btn');
-         $('#h-btn').append(compUI.span('btn')).attr('display','inline');
-         $('#btn').html('알고리즘').addClass('label label-default');
-         $('#h-btn').append(compUI.span('btn2')).attr('display','inline');
-         $('#btn2').html('회원 관리').addClass('label label-info').css({'margin-left' : '10px'});
-       
-       /*  $('#h-btn').append(compUI.span('bbsBtn')).attr('display','inline');
-         $('#bbsBtn').html('게시판').addClass('label label-warning').css({'margin-left' : '10px'});*/
-         $('#btn').click(()=>{
-            $container.empty();
-            //meta.auth.init();   
-            meta.navbar.init();
-            $container.html(algoUI.series());
-         });
-         /*MEMBER*/
-         $('#btn2').click(()=>{
-        	 alert('회원관리');
-        	 
-         });
-         
-         /*board*/
-         /*모듈형으로 코딩*/
-       
-         compUI.span('bbsBtn').html('게시판 관리')
-         .addClass('label label-warning')
-         .attr('display','inline')
-         .css({'margin-left' : '10px'})
-         .appendTo($hBtn);
-         $navbar.html(introUI.navbar());
-         
-        $('#bbsBtn').click(()=>{
-        	 alert('게사판 가기');
-        		var url=ctx+'/get/board/list';
-        		 $navbar.html(introUI.navbar());
-        		    $.getJSON(url,data=>{
-            		alert('x msg is '+data.msg);
-            		$container.html(bbsUI.board());
-            		$('#searchBox').after(compUI.iTxt('msg'));
-            		$('#msg').addClass('form-control').css({'width':'100%'}).attr('placeholder','search');
-            		$('#searchGroup').after(compUI.input('goSearch','submit'));
-            		$('#goSearch').addClass('btn btn-primary').css({'width':'100px'}).val('SEARCH');
-       /*     		JSON배열 코딩
-        			var a=[
-        				{
-        					a :1,
-        					b: '한국',
-        					c: '안녕',
-        					d :'길동',
-        					e :'2017-09-10',
-        					f : 10
-        					
-        				},
-        				{
-        					a :2,
-        					b: 'English',
-        					c: 'Hello',
-        					d :'Alice',
-        					e :'2017-09-10',
-        					f : 7
-        				},
-        				{
-        					a :3,
-        					b: '中国',
-        					c: '你好！',
-        					d :'李学生',
-        					e :'2017-09-10',
-        					f : 5
-        				},
-        				{
-        					a :4,
-        					b: 'thailand',
-        					c: 'สวัสดี',
-        					d :'lachaphat',
-        					e :'2017-09-10',
-        					f : 10
-        				},
-        				{
-        					a :5,
-        					b: 'spain',
-        					c: 'Holla!',
-        					d :'Diago',
-        					e :'2017-09-10',
-        					f : 10
-        				}
-        			];*/
-        			
-        			
-        			
-            		var tr;
-        				$.each(data.list,(i,j)=>{
-        					tr+= '<tr style="height : 25px;">'
-        						+'<td>'+j.articleSeq+'</td>'
-        						+'<td>'+j.id+'</td>'
-        						+'<td>'+j.title+'</td>'
-        						+'<td>'+j.content+'</td>'
-        						+'<td>'+j.regdate+'</td>'
-        						+'<td>'+j.hitCount+'</td>'
-        						+'</tr>';
-        				});
-        				console.log('tr :'+tr);
-        				$('#tabBody').html(tr);
+       /*
+       * /// 색상 <span class="label label-default">Default</span> <span
+       * class="label label-primary">Primary</span> <span class="label
+       * label-success">Success</span> <span class="label label-info">Info</span>
+       * <span class="label label-warning">Warning</span> <span class="label
+       * label-danger">Danger</span>
+       */
+      var onCreate=function(){
+          $.getScript(temp,(x,y)=>{
+            $container.append(compUI.div('content')).css({'width':'100%'});
+            $('#content').css({'width':'50%','margin':'0 auto'}).append(compUI.image('loading',img+'/loading.gif'));
+            $('#loading').after(compUI.h1('h-btn'));
+             $('#h-btn').append(compUI.span('btn')).attr('display','inline');
+             $('#btn').html('알고리즘').addClass('label label-default');
+             $('#h-btn').append(compUI.span('btn2')).attr('display','inline');
+             $('#btn2').html('회원관리').addClass('label label-info').css({'margin-left' : '10px'});
+             $('#h-btn').append(compUI.span('btn3')).attr('display','inline');
+             $('#btn3').html('게시판').addClass('label label-warning').css({'margin-left' : '10px'});
+             $('#btn2').click(()=>{
+                alert('회원관리');
              });
-         });
-      });
-    };
+            
+             
+             $('#btn3').click(()=>{
+                alert('게시판');
+            
+                
+                // location.href=ctx+'/get/board/list'; //리스트를 조회해서 가지고옴
+               // (get)
+                var url=ctx+'/get/board/list';
+                
+        
+               
+                $.getJSON(url,data=>{
+                   
+                   alert('count'+data.total.count);
+                   $container.html(introUI.board());
+                   $('#total').after();
+                   $('#h-btn').append(compUI.span('searchBtn')).attr('display','inline');
+                   var tr='';
+                  
+                     $.each(data.list,(i,j)=>{// JSON배열 - a는 array(배열), i는
+                                    // index, j는 object의 j
+                     tr+='<tr style="height: 25px;">'
+                        +'<td >'+j.articleSeq+'</td>'
+                        +'<td >'+j.content+'</td>'
+                        +'<td ><a onclick="meta.board.detail('+j.articleSeq+')">'+j.title+'</a></td>'
+                        +'<td >'+j.id+'</td>'
+                        +'<td >'+j.regdate+'</td>'
+                        +'<td >'+j.hitCount+'</td>'
+                        +'</tr>';
+                     });
+                     $('#tbody').html(tr);   
+                     $count=$('#total');
+                     $count.html(data.total.count);
+                
+                  $('#add').click(()=>{
+                     alert('클릭');
+                      meta.board.write();
+                  });
+                           
+                   $('#searchBtn').click(()=>{
+                      alert('검색');
+                   });    
+                   $('#addBtn').click(()=>{
+                      alert('검색');
+                   });
+                });
+             });
+              $('#btn').click(()=>{
+                 $container.empty();
+                // meta.auth.init();
+                meta.navbar.init();
+               
+             });
+          });
+          };
    return {init:init};
 })();
 
-/*meta.auth*/
+meta.board=(()=>{
+    var $wrapper,$navbar,$container,ctx,img,js,css,
+     temp,algo;
+   var init=()=>{
+      
+       js=$$('j');
+       temp=js+'/template.js';
+         $container=$('#container');
+         $tbody=$('#tbody');
+         ctx=$$('x');
+         $ok=$('#ok');
+   };
+   var write=()=>{
+      init();
+      alert('고고 글쓰기');
+   $.getScript(temp,()=>{
+    $container.html(introUI.detail());
+       
+        });      
+   };
+   var list=(x)=>{
+      
+   };
+   var detail=(x)=>{
+      alert('디테일');
+      init();
+      alert('선택한값'+x);
+      
+        $.getJSON(ctx+'/get/articles/'+x,d=>{
+           alert('data값'+d.test);
+           $.getScript(temp,()=>{
+              $container.html(introUI.detail());
+              $('#add').html('게시글보기');
+              $('#fname').val(d.detail.title);
+              $('#lname').val(d.detail.id);
+              $('#message').val(d.detail.content);
+             
+              
+              
+              $('#ok').html('수정').click(e=>{
+                 e.preventDefault();
+                 $('#add').html('게시글수정하기');
+                 $('#no').click(e=>{
+                    e.preventDefault();
+                    update(x);
+                 })
+                 $('#ok').html('확인').attr('id','updateBtn').click(e=>{
+                	 var _seq=d.detail.article_Seq;
+                     var _id=$('#lname').val();
+                     var _title=$('#fname').val();
+                     var _message=$('#message').val();
+                    e.preventDefault();//폼테그에 서브및기능을죽임 ajax는 무조건 걸구감
+                                       
+                    $.ajax({
+                       url : ctx+'/put/article', 
+                       method : 'post',
+                       dataType : 'json',
+                       data  : JSON.stringify({
+                          'article_Seq' : _seq,
+                          'title' : _title,
+                          'id' : _id,
+                          'content' : _message
+                       }),
+                       contentType : 'application/json',
+                       success : d=>{
+                          alert('ajax통신성공    :::'+d.msg);
+                       },
+                       error : (x,s,m)=>{
+                          alert('글수정시 에러발생'+m);
+                       }
+                    });
+                    update(x);
+                 }); 
+              });
+              $('#no').html('삭제').click(e=>{
+                 e.preventDefault(); 
+                 deleteArticle(x);
+              });
+                 $('#no')
+                   .attr('data-toggle','modal')
+                   .attr('data-target','#modal')
+                   .addClass('btn btn-primary')
+                   .html('삭제하기').click(e=>{
+                      e.preventDefault(); 
+                      deleteArticle(x+','+pass);
+                   });
+                   ;
+                });
+            });
+        };
+    /*
+       * var detail=(x)=>{ init(); alert('선택한값'+x);
+       * $.getJSON(ctx+'/get/board/'+x,data=>{ $.getScript(temp,()=>{
+       * $container.html(introUI.detail()); $('#legend').html('게시글보기');
+       * $('#confirmBtn').html('수정').click(e=>{ e.preventDefault(); update(x);
+       * }); $('#cancelBtn') .attr('data-toggle','modal')
+       * .attr('data-target','#modal') .addClass('btn btn-primary')
+       * .html('삭제하기').click(e=>{ e.preventDefault();
+       * deleteArticle(x+','+pass); }); ; }); }); };
+       */
+   var update =(x)=>{
+         alert('수정클릭');
+         detail(x);
+          $.getJSON(ctx+'/get/articles/'+x,data=>{
+              $.getScript(temp,()=>{
+                 $container.html(introUI.detail());
+                 $('#add').html('게시글수정하기');
+                 $('#no').click(e=>{
+                    e.preventDefault();
+                    update(x);
+                 })
+                 $('#ok').click(e=>{
+                    e.preventDefault();
+                    update(x);
+                 })
+              });
+          });
+   };
+   var deleteArticle=x=>{
+      alert('삭제버튼');
+      var url=ctx+'/get/board/list';
+       $.getJSON(url,data=>{
+           
+           alert('count'+data.total.count);
+           $container.html(introUI.board());
+           $('#total').after();
+           $('#h-btn').append(compUI.span('searchBtn')).attr('display','inline');
+           var tr='';
+          
+             $.each(data.list,(i,j)=>{// JSON배열 - a는 array(배열), i는 index, j는
+                              // object의 j
+             tr+='<tr style="height: 25px;">'
+                +'<td >'+j.articleSeq+'</td>'
+                +'<td >'+j.content+'</td>'
+                +'<td ><a onclick="meta.board.detail('+j.articleSeq+')">'+j.title+'</a></td>'
+                +'<td >'+j.id+'</td>'
+                +'<td >'+j.regdate+'</td>'
+                +'<td >'+j.hitCount+'</td>'
+                +'</tr>';
+             });
+             $('#tbody').html(tr);   
+             
+             $count=$('#total');
+             $count.html(data.total.count);
+          
+           
+          $('#add').click(()=>{
+             alert('클릭');
+              meta.board.write();
+          });
+           
+           
+           $('#searchBtn').click(()=>{
+              alert('검색');
+           });    
+           $('#addBtn').click(()=>{
+              alert('검색');
+           });
+        });
+   };
+   
+   return {detail:detail,init:init,write:write
+      };
+   
+})();
+
 meta.auth=(function(){
    var $wrapper,ctx,img,js,css,temp;
    var init=function(){
@@ -183,8 +312,6 @@ meta.auth=(function(){
       init : init
    };
 })();
-
-/*meta.navbar*/
 meta.navbar=(function(){
    var algo,js,temp,$container;
    var init=function(){
@@ -194,7 +321,7 @@ meta.navbar=(function(){
       temp=js+'/template.js';
       onCreate();
       
-      /*algo=js+'/algo.js';*/
+      /* algo=js+'/algo.js'; */
       
    };
    var onCreate=function(){
@@ -223,43 +350,41 @@ meta.navbar=(function(){
             });
          });
          $('.dropdown-menu a').eq(0).on('click',function(){
-            //app.controller.moveTo('member','member_add');
+            // app.controller.moveTo('member','member_add');
          });
          $('.dropdown-menu a').eq(1).on('click',function(){
-            //app.member.list(1);
+            // app.member.list(1);
          });
          $('.dropdown-menu a').eq(2).on('click',function(){
-            //app.controller.moveTo('member','member_detail');
+            // app.controller.moveTo('member','member_detail');
          });
          $('.dropdown-menu a').eq(3).on('click',function(){
-            //app.controller.deleteTarget('hong','member','member_delete');
+            // app.controller.deleteTarget('hong','member','member_delete');
          });
          $('.dropdown-menu a').eq(4).on('click',function(){
-            //app.controller.moveTo('grade','grade_add');
+            // app.controller.moveTo('grade','grade_add');
          });
          $('.dropdown-menu a').eq(5).on('click',function(){
-            //app.controller.moveTo('hong','grade','grade_list');
+            // app.controller.moveTo('hong','grade','grade_list');
          });
          $('.dropdown-menu a').eq(6).on('click',function(){
-            //app.controller.moveTo('grade','grade_detail');
+            // app.controller.moveTo('grade','grade_detail');
          });
          $('.dropdown-menu a').eq(7).on('click',function(){
-            //app.controller.deleteTarget('hong','grade','grade_delete');
+            // app.controller.deleteTarget('hong','grade','grade_delete');
          });
          $('.dropdown-menu a').eq(8).on('click',function(){
-            //app.controller.moveTo('board','board_write');
+            // app.controller.moveTo('board','board_write');
          });
          $('.dropdown-menu a').eq(9).on('click',function(){
-            //app.controller.moveTo('board','board_list');
+            // app.controller.moveTo('board','board_list');
          });
          $('.dropdown-menu a').eq(10).on('click',function(){
-            //app.controller.moveTo('board','board_detail');
+            // app.controller.moveTo('board','board_detail');
          });
          $('.dropdown-menu a').eq(11).on('click',function(){
-            //app.controller.deleteTarget('hong','board','board_delete');
+            // app.controller.deleteTarget('hong','board','board_delete');
          });
-         
-         /*ALGORITHSM*/
          $('#arithBtn').on('click',function(){
             $container.html(algoUI.series());
             $('#start_txt').after(compUI.input('start','text'));
@@ -331,7 +456,7 @@ meta.navbar=(function(){
              })
           });
          $('#fiboBtn').click(()=>{
-             $container.html(algoUI.series());
+            $container.html(algoUI.series());
              $('#start_txt').after(compUI.input('start','text'));
              $('#start').attr('placeholder','시작값');
              $('#end_txt').after(compUI.input('end','text'));
@@ -346,25 +471,26 @@ meta.navbar=(function(){
                 });
              })
           });
+       // 선택//
          
-         /*배열 */
-        
          $('#selBtn').click(()=>{
              
              alert('selection clicked');
              $container.html(algoUI.sort());
              $('h1').html('선택 정렬').css('font-weight','bold');
-             $('#start_txt').after(compUI.input('num','text'));
-             $('#num').attr('placeholder','숫자를 입력하여 주세요 ');
-             $('#num').after(compUI.input('submitBtn','button'));
+             $('#start_txt').after(compUI.input('start','text'));
+             $('#start').attr('placeholder','숫자를 입력하여 주세요 ');
+             $('#start').after(compUI.input('submitBtn','button'));
              $('#submitBtn').val('입력');
              
              var rs = new Array();
              
              $('#submitBtn').click(()=>{
-                rs.push($('#num').val());
-                $('#num').val('');
+                rs.push($('#start').val());
+                $('#start').val('');
              });
+             $('#result').before(compUI.input('resultBtn','button'));
+             $('#resultBtn').val('결과값');
              $('#resultBtn').click(()=>{
                 $.getScript(algo,()=>{
                    $('#result').text('결과 값: '+sort.selection(rs));
@@ -372,83 +498,146 @@ meta.navbar=(function(){
              });
           });
          
-         $('#bubbleBtn').click(()=>{
-        	 alert('burble clicked');
-        	 $container.html(algoUI.sort());
-        	 $('h1').html('버블 정렬').css('font-weight','bold');
-        	 $('#start_txt').after(compUI.input('num','text'));
-        	 $('#num').attr('placeholder','숫자를 입력하여 주세요 ');
-        	 $('#num').after(compUI.input('submitBtn','button'));
-        	 $('#submitBtn').val('입력');
-        	 var rs= new Array();
-        	 $('#submitBtn').click(()=>{
-        		 rs.push($('#num').val()*1);
-        		 $('#num').val('');
-        	 });
-        	 $('#resultBtn').click(()=>{
-        		 $.getScript(algo,()=>{
-        			 $('#result').text('결과 값: '+sort.bubble(rs));
-        		 });
-        	 });
+         // 버블 //
+         $('#burbleBtn').click(()=>{
+            alert('버블');
+            $container.html(algoUI.sort());
+            $('h1').html('버블 정렬').css('font-weight','bold');
+            $('#start_txt').after(compUI.input('start','text'));
+             $('#start').attr('placeholder','숫자를 입력하여 주세요 ');
+             $('#start').after(compUI.input('submitBtn','button'));
+             $('#submitBtn').val('입력');
+             
+            var bbb = new Array();
+            $('#submitBtn').click(()=>{
+               bbb.push($('#start').val());
+                 $('#start').val('');
+              });
+            $('#result').before(compUI.input('resultBtn','button'));
+            $('#resultBtn').val('결과값');
+             $('#resultBtn').click(()=>{
+            $.getScript(algo,()=>{
+                 $('#result').text('결과 값: '+sort.bubble(bbb));
+              });
+             });
          });
+         
+         // 삽입//
          $('#insertBtn').click(()=>{
-        	 alert('insertBtn clicked');
-        	 $container.html(algoUI.sort());
-        	 $('h1').html('인설트 정렬').css('font-weight','bold');
-        	 $('#start_txt').after(compUI.input('num','text'));
-        	 $('#num').attr('placeholder','숫자를 입력하여 주세요 ');
-        	 $('#num').after(compUI.input('submitBtn','button'));
-        	 $('#submitBtn').val('입력');
-        	 var rs= new Array();
-        	 $('#submitBtn').click(()=>{
-        		 rs.push($('#num').val()*1);
-        		 $('#num').val('');
-        	 });
-        	 $('#resultBtn').click(()=>{
-        		 $.gstScript(algo,()=>{
-        			 $('#result').text('결과 값: '+sort.insertion(rs));
-        		 });
-        	 });
+            alert('삽입');
+            $container.html(algoUI.sort());
+            $('h1').html('삽입 정렬').css('font-weight','bold');
+            $('#start_txt').after(compUI.input('start','text'));
+             $('#start').attr('placeholder','숫자를 입력하여 주세요 ');
+             $('#start').after(compUI.input('submitBtn','button'));
+             $('#submitBtn').val('입력');
+             
+            var bbb = new Array();
+            $('#submitBtn').click(()=>{
+               bbb.push($('#start').val());
+                 $('#start').val('');
+              });
+            $('#result').before(compUI.input('resultBtn','button'));
+            $('#resultBtn').val('결과값');
+             $('#resultBtn').click(()=>{
+                alert('tttt');
+            $.getScript(algo,()=>{
+                 $('#result').text('결과 값: '+sort.insertion(bbb));
+              });
+             });
          });
+       
          $('#rankBtn').click(()=>{
-        	 alert('rankBtn clicked');
-        	 $container.html(algoUI.sort());
-        	 $('h1').html('랭킹 정렬').css('font-weight','bold');
-        	 $('#start_txt').after(compUI.input('num','text'));
-        	 $('#num').attr('placeholder','숫자를 입력하여 주세요 ');
-        	 $('#num').after(compUI.input('submitBtn','button'));
-        	 $('#submitBtn').val('입력');
+            alert('랭킹');
+            $container.html(algoUI.sort());
+            $('h1').html('랭킹 정렬').css('font-weight','bold');
+            $('#start_txt').after(compUI.input('start','text'));
+             $('#start').attr('placeholder','숫자를 입력하여 주세요 ');
+             $('#start').after(compUI.input('submitBtn','button'));
+             $('#submitBtn').val('입력');
+             
+            var bbb = new Array();
+            $('#submitBtn').click(()=>{
+               bbb.push($('#start').val());
+                 $('#start').val('');
+              });
+            $('#result').before(compUI.input('resultBtn','button'));
+            $('#resultBtn').val('결과값');
+             $('#resultBtn').click(()=>{
+               
+            $.getScript(algo,()=>{
+                 $('#result').text('결과 값: '+sort.ranking(bbb));
+              });
+             });
          });
          $('#binSearchBtn').click(()=>{
-        	 alert('binSearchBtn clicked');
-        	 $container.html(algoUI.sort());
-        	 $('h1').html('binSearc 정렬').css('font-weight','bold');
-        	 $('#start_txt').after(compUI.input('num','text'));
-        	 $('#num').attr('placeholder','숫자를 입력하여 주세요 ');
-        	 $('#num').after(compUI.input('submitBtn','button'));
-        	 $('#submitBtn').val('입력');
+            alert('이분정렬');
+            $container.html(algoUI.sort());
+            $('h1').html('이분 정렬').css('font-weight','bold');
+            $('#start_txt').after(compUI.input('start','text'));
+             $('#start').attr('placeholder','숫자를 입력하여 주세요 ');
+             $('#start').after(compUI.input('submitBtn','button'));
+             $('#submitBtn').val('입력');
+             
+            var bbb = new Array();
+            $('#submitBtn').click(()=>{
+               bbb.push($('#start').val());
+                 $('#start').val('');
+              });
+            $('#result').before(compUI.input('resultBtn','button'));
+            $('#resultBtn').val('결과값');
+             $('#resultBtn').click(()=>{
+                alert('결과값');
+            $.getScript(algo,()=>{
+                 $('#result').text('결과 값: '+sort.even(bbb));
+              });
+             });
+            
          });
          $('#mergeBtn').click(()=>{
-        	 alert('mergeBtn clicked');
-        	 $container.html(algoUI.sort());
-        	 $('h1').html('머지 정렬').css('font-weight','bold');
-        	 $('#start_txt').after(compUI.input('num','text'));
-        	 $('#num').attr('placeholder','숫자를 입력하여 주세요 ');
-        	 $('#num').after(compUI.input('submitBtn','button'));
-        	 $('#submitBtn').val('입력');
-        	 
-        	 
+            alert('병합');
          });
          $('#stackBtn').click(()=>{
-        	 alert('stackBtn clicked');
-        	 $container.html(algoUI.sort());
-        	 $('h1').html('스택 정렬').css('font-weight','bold');
-        	 $('#start_txt').after(compUI.input('num','text'));
-        	 $('#num').attr('placeholder','숫자를 입력하여 주세요 ');
-        	 $('#num').after(compUI.input('submitBtn','button'));
-        	 $('#submitBtn').val('입력');
-        	 
+            alert('스택');
          });
+         $('#55Btn').click(()=>{
+            alert('기본5행 5열');
+         });
+         $('#samBtn').click(()=>{
+            alert('직각삼각형');
+         });
+         $('#gigoBtn').click(()=>{
+            alert('지그재그');
+         });
+         $('#diaBtn').click(()=>{
+            alert('다이아몬드');
+         });
+         $('#moreBtn').click(()=>{
+            alert('모래시계');
+         });
+         $('#rightBtn').click(()=>{
+            alert('오른쪽 빈삼각형');
+         });
+         $('#leeBtn').click(()=>{
+            alert('이등변삼각형');
+         });
+         $('#90Btn').click(()=>{
+            alert('90도 회전');
+         });
+         $('#dalBtn').click(()=>{
+            alert('달팽이');
+         });
+         $('#degakBtn').click(()=>{
+            alert('대각선채우기');
+         });
+         $('#maBtn').click(()=>{
+            alert('마방진');
+         });
+         $('#hangBtn').click(()=>{
+            alert('행렬변환');
+         });
+       
+         
          
       });
    };
@@ -456,7 +645,7 @@ meta.navbar=(function(){
    return {init:init};
 })();
 
-/*path*/
+
 meta.session=
    {
       init : (x)=>{
@@ -470,5 +659,4 @@ meta.session=
               }
    };
 var $$= function(x){return meta.session.getPath(x);};
-         
-
+        

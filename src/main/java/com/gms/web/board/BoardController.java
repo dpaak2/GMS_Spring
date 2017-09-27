@@ -1,63 +1,114 @@
 package com.gms.web.board;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.gms.web.command.Command;
+import com.gms.web.command.ResultMap;
 import com.gms.web.mapper.BoardMapper;
 import com.gms.web.mapper.GradeMapper;
 import com.gms.web.service.IListServie;
+import com.gms.web.service.IPostServie;
+import com.gms.web.service.IgetService;
+
 @RestController
+
 public class BoardController {
    private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+
    @Autowired BoardMapper boardMapper;
    @Autowired GradeMapper gradeMapper;
    @Autowired Command cmd;
    
    public @ResponseBody Map<?,?> post(){
+      
       return null;
    }
-   @RequestMapping("/get/{cate}/list")//board의 list 페이지를 가져와라
-   public @ResponseBody Map<?,?> boardList(@PathVariable String cate) {//@RestController가 있어야 @ResponseBody를 사용할 수 있다, 제이슨에서 리턴한것을 Map으로 받는다
-                                                                  //JSON에서 리턴을 해서 던져주면 @ResponseBody에서 리턴타입을 Map을 써주었기 때문에 Map으로 담겨진다
-      logger.info("BoardController BoardList {}","진입");
+   
+   @RequestMapping("/get/{cate}/list")
+   public @ResponseBody Map<?,?> boardList(@PathVariable String cate) {
+      logger.info("BoardController::::: boardDelete {}","진입");
       Map<String,Object> map=new HashMap<>();
-      System.out.println("board/list 에 들어옴");
-     IListServie listService = null;
-
-      switch(cate) {
-      case"board":
+      IListServie listSercice=null;
+      IgetService countService=null;
+      switch (cate) {
+      case "board": 
          cmd=null;
-        listService=(x)-> {
-            return boardMapper.selectSome(cmd);
+         listSercice=(x)->{
+               return boardMapper.selectSome(cmd);
          };
-         System.out.println("%%%%%result::"+listService);
-         map.put("rsult", "success");
-         map.put("list", listService.execute(cmd)); 
-         break;
-      case"grade":
+         countService=(x)->{
+            return boardMapper.countArticles(cmd);
+            
+         };
+         System.out.println("123123"+listSercice);
+        ResultMap r =   (ResultMap) countService.execute(cmd);
+         System.out.println("rrrr"+r);
+         
+         map.put("total",r);
+         
+         System.out.println("count"+countService.execute(cmd));
+         map.put("list",listSercice.execute(cmd));
+         System.out.println("213123123"+listSercice.execute(cmd));
+         break;      
+      case "grade": 
          cmd=null;
-         listService=(x)-> {
-            return gradeMapper.selectSome(cmd);
+         /*listSercice=(x)->{
+               return gradeMapper.selectSome(cmd);
          };
-         map.put("list", "항"); 
-         break;
+         map.put("list",listSercice.execute(cmd));*/      
+         break;   
+      
       }
-         return map;
+      System.out.println("보드에 들어옴");
+      
+      
+      return map;
    }
-   public @ResponseBody Map<?,?> get(){
-      return null;
+   @RequestMapping("/get/{cate}/{id}")
+   public @ResponseBody Map<?,?> get( @PathVariable String cate ,@PathVariable String id){
+      logger.info("BoardController:::::디테일 {}","진입");
+      System.out.println("넘어온아이디"+id);
+      Map<String,Object> map=new HashMap<>();
+      
+      map.put("test", "데이터넘어감");
+      cmd =new Command();
+      IgetService detail;
+      cmd.setSearch(id);
+      System.out.println("cmd값"+cmd.getSearch());
+      detail =(x)->{
+         return boardMapper.selectOne(cmd);
+      };
+   
+      map.put("detail", detail.execute(cmd));
+      System.out.println("가져온데이터값"+map.get("detail"));
+      return map;
+
    }
-   public @ResponseBody Map<?,?> put(){
-      return null;
+   @RequestMapping("/put/article")
+   public @ResponseBody Map<?, ?> put(@RequestBody Article art){
+      Map<String,Object> map=new HashMap<>();
+      map.put("msg", art.getTitle());
+      IPostServie update;
+      cmd =new Command();
+      cmd.setSearch(String.valueOf(art.getArticleSeq()));
+      cmd.setDir(art.getTitle());
+      cmd.setColumn(art.getContent());
+      System.out.println("넘어온 아이디 :::"+art.getArticleSeq());
+       update= (x)->{
+    	   boardMapper.updateArticle(cmd);
+	   };
+	   update.execute(cmd);
+      return map;
    }
    public @ResponseBody Map<?,?> delete(){
       return null;
    }
+   
 }

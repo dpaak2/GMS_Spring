@@ -1,19 +1,192 @@
 var introUI={
-   
-   login : i=>{
-      return '<div id="container">'
-      +'<div id="login_box">'
-      +   '<img src="'+i+'/login.jpg" alt="" /><br />'
-      +   '<span id="login_id">ID</span>'
-      +   '<input id="login_input" type="text"  /> <br />'
-      +   '<span id="login_pass">PASSWORD</span> '
-      +   '<input type="text"  /> <br />'
-      +'</div>'
-   +'</div>';
+      detail :()=>{
+         return '<body> '
+         +'<div class="page-header">'
+           +'<h1 style="display:inline ; margin-left:150px">게시판</h1>'
+           +'<a style="font-size:large;">목록가기</a>'
+         +'</div>'
+           +'<div class="container">'
+           +'<div class="row">'
+           +'<div class="col-md-12">'
+           +'<div class="well well-sm">'
+           +'<from class="form-horizontal" method="post">'
+           +'<fieldset>'
+           +'<legend class="text-center header" id="add">게시글쓰기</legend>'
+           +'<div class="form-group">'
+           +'<span class="col-md-1 col-md-offset-2 text-center">'
+           +'<i class="fa fa-user bigicon"></i></span>'
+           +'<div class="col-md-12">'
+           +'<input id="fname" name="title" type="text" placeholder="제목" class="form-control"/>'
+           +'</div>'
+           +'</div>'
+             +'<div class="form-group">'
+           +'<span class="col-md-1 col-md-offset-2 text-center">'
+           +'<i class="fa fa-user bigicon"></i></span>'
+           +'<div class="col-md-12">'
+           +'<input id="lname" name="name" type="text" placeholder="글쓴이" class="form-control"/>'
+           +'</div>'
+           +'</div>'
+             +'<div class="form-group">'
+           +'<span class="col-md-1 col-md-offset-2 text-center">'
+           +'<i class="fa fa-user bigicon"></i></span>'
+           +'<div class="col-md-12">'
+           +'<textarea class="form-control" name="message" id="message" rows="15"></textarea>'
+           +'</div>'
+           +'</div>'
+             +'<div class="form-group">'
+           +'<div class="col-md-12 text-center">'
+           +'<button type="submit" id="ok" style="width:200px" class="btn btn-primary btn-lg">확인</button>'
+           +'<button type="submit" id="no"style="width:200px" class="btn btn-danger btn-lg">취소</button>'
+           +'<span class="col-md-1 col-md-offset-2 text-center">'
+           +'</span>'
+           +'</div>'
+           +'</div>'
+           +'</fieldset>'
+           +'</from>'
+           +'</div>'
+           +'</div>'
+           +'</div>'
+         +'</div>'
+            +'<div class="modal fade alert" id="modal" tabindex="-1">'
+            +'role="dialog" aria-labelledby="modalLabel" aria-hidden="true">'
+            +'<div class="modal-dialog">'
+            +'<div class="modal-content">'
+            +'<div class="modal-header">'
+            +'<button type="button" class="close" data-dismiss-"modal">'
+            +'<span aria-hidden="true">x</span>'
+            +'<span class-"sr-only">close</span></button>'
+            +'<h3 class="modal-title" id="modalLabel">정말 삭제하시겠습니까?</h3>'
+            +'</div>'
+            +'<div class="modal-body">'
+            +'   <form>'
+            +'      <div class="form-group">'
+            +'          <label for-"inputPass">Password</label>'
+            +'           <input type="password" class="form-control">'
+            +'             <input label id="user-email2" placeholder="Enter Password">'
+            +'      </div>'
+            +'      <button type="submit" style="width:200px">'
+            +'           <button class="btn btn-primary center-block">확 인</button>'
+            +'  </form>'
+            +'</div>'
+            +'</div>'
+            +'</div>'
+            +'</div>'
+         +'</body>';
+      },
+      
+      listnav: ()=>{return '<div class="row">'
+           +'<div class="col-lg-4">'
+           +' <div class="input-group">'
+           +' <input type="text" class="form-control" placeholder="Search for..." id="searchName" name="searchName">'
+           +'  <span class="input-group-btn">'
+           +'     <button id="search_button" class="btn btn-default" type="submit" onclick="app.controller.searchName()">SEARCH</button>'
+           +'    </span>'
+           +'   </div><!-- /input-group -->'
+           +'  </div><!-- /.col-lg-6 -->'
+           +'   </div><!-- /.row -->'
+           +'      <h1>회원수 ${count}</h1>'
+           +'      <table id="member_list_tab">'
+           +'<tr>'
+           +'   <th style="width: 10%;">NO</th>'
+           +'      <th style="width: 10%;">ID</th>'
+           +'      <th style="width: 10%;">NAME</th>'
+           +'   <th style="width: 20%;">EMAIL</th>'
+           +'   <th style="width: 10%;">SUBJECT</th>'
+           +'<th style="width: 10%;">PHONE NO</th>'
+           +'      <th style="width: 15%;">REGDATE</th>'
+           +'      <th style="width: 15%;">수정/삭제</th>'
+           +'   </tr>'
+           +'<c:forEach var="i"  items="${list}">'
+           +'<tr>'
+           +'   <td style="width: 10%;"></td>'
+           +'   <td style="width: 10%;"></td>'
+           +'   <td style="width: 10%;"></td>'
+           +'   <td style="width: 20%;"></td>'
+           +'      <td style="width: 10%;"></td>'
+           +'      <td style="width: 10%;"></td>'
+           +'      <td style="width: 15%;"></td>'
+           +'      <td style="width: 15%;">수정'
+         +'    </tr>'
+      +'      </c:forEach>'
+      +'   </table>'
+      +'      <nav aria-label="Page navigation" style="width:450px; margin: 0 auto;">'
+      +'        <ul class="pagination">'
+      +'     <c:if test="${prevBlock gt 0 }">'
+      +'         <li><span class="glyphicon glyphicon-step-backward " aria-hidden="true">></li>'
+      +'          <li>'
+      +'              <span aria-hidden="true">&laquo;</span>'
+      +'            </a>'
+      +'          </li>'
+      +'        </c:if>'
+      +'          '
+      +'          <c:forEach varStatus="i" begin="${startPage}" end="${endPage}" step="1">'
+      +'            <c:choose>'
+      +'             <c:when test="${i.index eq pageNumber}">'
+      +'             <li class="active"><a href="#">${i.index}</a></li>'
+      +'             </c:when>'
+      +'               <li></li>'
+      +'         </c:choose>'
+      +'       </c:forEach>'
+      +'    <!-- Next -->'
+      +'      <c:if test="${nextBlock le theNumberOfPages}">'
+      +'         <li><span aria-hidden="true">&raquo;</li>'
+      +'         <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span></a></li>'
+      +'      </c:if>'
+      +'        </ul>'
+      +'      </nav>'
+         
+      },
+      
+      
+      board : ()=>{
+           var tbl='<table id="tbl" border=1 class=" width-80pro border-collapse margin-center">'
+              +'<div class="btn-group">'
+              +'  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+              +'    작성자 <span class="caret"></span>'
+              +'  </button>'
+              +'  <ul class="dropdown-menu">'
+              +'    <li><a href="#">이름</a></li>'
+              +'    <li><a href="#">아이디</a></li>'
+                 +'  </ul>'
+              +'</div>'
+              +' <div class="input-group">'
+              +' <input type="text" class="form-control" placeholder="Search for..." id="searchName" name="searchName">'
+              +'  <span class="input-group-btn">'
+              +'     <button id="search_button" class="btn btn-default" type="submit" >검색</button>'
+              +'    </span>'
+              +'   </div><!-- /input-group -->'
+              +'<br/><h1  style="color:red">카운트수 <h1/><h1 id="total" style="color:red">  <h1/> <input type="button" id="add" class="form-control" value="글쓰기">' 
+              +'  </div>'
+              +'</form>'
+              +'<thead><tr style="height: 25px;">';
+           var a=[{width:'20%',txt:'NO'},
+                 {width:'36%',txt:'제 목'},
+                  {width:'15%',txt:'내 용'},
+                  {width:'15%',txt:'글쓴이'},
+                  {width:'15%', txt:'작성일'},
+                  {width:'9%',txt:'조회수'}];
+           $.each(a,(i,j)=>{
+              tbl+='<th style="width: '+j.width+'; text-align: center;">'+j.txt+'</th>'
+           });
+           tbl+='</tr></thead><tbody id="tbody">';
+           tbl+='</tbody></table></div>'
+              +'<div class="container">'
+               +'<ul class="pagination">'
+                 +'<li><a href="#">1</a></li>'
+                 +'<li><a href="#">2</a></li>'
+                 +'<li><a href="#">3</a></li>'
+                 +'<li><a href="#">4</a></li>'
+                 +'<li><a href="#">5</a></li>'
+               +'</ul>'
+             +'</div>'
+
+              
+              return tbl;
+           
    },
+           
    navbar : ()=>{
-      return 
-      '<nav class="navbar navbar-inverse">'
+      return '<nav class="navbar navbar-inverse">'
       +'  <div class="container-fluid">'
       +'    <div class="navbar-header">'
       +'      <a class="navbar-brand" href="#">GMS</a>'
@@ -21,10 +194,7 @@ var introUI={
       +'    <ul class="nav navbar-nav">'
       +'      <li class="active"><a ><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>'
       +'      <li class="dropdown">'
-      +'          <a href="#" class="dropdown-toggle" '
-      +'             aria-haspopup="true" '
-      +'             aria-expanded="false">회원관리 <span class="caret">'
-      +'             </span></a>'
+      +'          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">회원관리 <span class="caret"></span></a>'
       +'          <ul id="navbar_ul_stu" class="dropdown-menu">'
       +'            <li><a>학생추가</a></li>'
       +'            <li><a>학생목록</a></li>'
@@ -67,31 +237,29 @@ var introUI={
       +'          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">배 열 <span class="caret"></span></a>'
       +'          <ul id="navbar_ul_board" class="dropdown-menu">'
       +'           <li><a id="selBtn">선택 정렬</a></li>'
-      +'            <li><a id="bubbleBtn">버블 정렬</a></li>'
-      +'            <li><a id="insertBtn">삽입정렬</a></li>'
-      +'            <li><a id="rankBtn">석차 구하기</a></li>'
-      +'            <li><a id="binSearchBtn">이분 검색</a></li>'
+      +'            <li><a id="burbleBtn">버블 정렬</a></li>'
+      +'            <li><a id="insertBtn">삽입 정렬</a></li>'
+      +'            <li><a id="rankBtn">석차 정렬</a></li>'
+      +'            <li><a id="binSearchBtn">이분검색</a></li>'
       +'            <li><a id="mergeBtn">병합</a></li>'
       +'            <li><a id="stackBtn">스택</a></li>'
       +'          </ul>'
       +'        </li>'
       +'      <li class="dropdown">'
-      +'          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">행 렬 <span class="caret"></span></a>'
+      +'          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">행 렬<span class="caret"></span></a>'
       +'          <ul id="navbar_ul_board" class="dropdown-menu">'
-      +'           <li><a>기본 5행 5열</a></li>'
-      +'            <li><a>직각삼각형</a></li>'
-      +'            <li><a>지그재그</a></li>'
-      +'            <li><a>다이아몬드</a></li>'
-      +'            <li><a>모래시계</a></li>'
-      +'            <li><a>오른쪽 빈삼각형</a></li>'
-      +'            <li><a>이등변 삼각형</a></li>'
-      +'            <li><a>90도회전</a></li>'
-      +'            <li><a>달팽이</a></li>'
-      +'            <li><a>대각선 채우기</a></li>'
-      +'            <li><a>망방진</a></li>'
-      +'            <li><a>행렬 변환</a></li>'
-      +'            <li></li>'
-      +'            <li><a>게시글삭제</a></li>'
+      +'           <li><a id="55Btn">기본5행 5열</a></li>'
+      +'            <li><a id="samBtn">직각삼각형</a></li>'
+      +'            <li><a id="gigoBtn">지그재그</a></li>'
+      +'            <li><a id="diaBtn">다이아몬드</a></li>'
+      +'            <li><a id="moreBtn">모래시계</a></li>'
+      +'            <li><a id="rightBtn">오른쪽 빈삼각형</a></li>'
+      +'            <li><a id="leeBtn">이등변삼각형</a></li>'
+      +'            <li><a id="90Btn">90도 회전</a></li>'
+      +'            <li><a id="dalBtn">달팽이</a></li>'
+      +'            <li><a id="degakBtn">대각선채우기</a></li>'
+      +'            <li><a id="maBtn">마방진</a></li>'
+      +'            <li><a id="hangBtn">행렬변환</a></li>'
       +'          </ul>'
       +'        </li>'
       +'    </ul>'
@@ -99,61 +267,21 @@ var introUI={
       +'       <a id="logout" >로그아웃</a></span>'
       +'  </div>'
       +'</nav>';
-   },
-   
-
+   }
 };
-
-var bbsUI={
-		board : ()=>{
-			var tbl= '<div id="board">'
-			+'<div style="width:90%;margin:20px auto;">'
-			+'<select id="searchOption" class="form-control" style="width:20%;float:left;margin-right:36px">'
-			+'<option value="searchByName" >작성자</option>'
-			+'<option value="searchByTitle">제목</option>'
-		    +'</select>'
-		    +'<div id="searchGroup" class="input-group" style="width:60%;float:left;margin-right:30px">'
-		    +'<span id="searchBox" class="input-group-addon">SEARCH</span>'
-		    +'</div>'
-		    +'<input class="btn btn-primary" style="width:100px" type="submit"  value="SEARCH"/>'
-		    +'</div>'
-		    +'<div style="margin:20px 0" >'
-					+'<span> 총게시글수</span>'
-		    +'</div>'
-		     +'<table class="table table-hover" style="width:90%;margin:0 auto;">'
-		     +'<thead>'
-		     +'<tr class="hanbit-table tr">'
-		     var y=[{txt:'NO'},{txt:'작성자'},{txt:'제목'},{txt:'내 용'},{txt:'등록일'},{txt :'조회수'}];
-			 $.each(y,(i,j)=>{
-				 tbl+='<th text-align: center>' +j.txt+'</th>'
-			 });
-			 tbl+='</tr> <tbody id="tabBody">';
-			
-		
-				tbl+='</tbody></table></div>'
-					
-				return tbl;
-	   }
-};
-
 var compUI={
-   br :()=>{return $('<br/>')},
-   div : x=>{return $('<div/>',{ id : x});},
-   h1 : x=>{return $('<h1/>',{id:x});},
-   span : x=>{return $('<span/>',{id:x});},
-   image : (x,y)=>{
-         return $('<img/>',
-         {   
-            id : x,
-            src : y
-         }); 
-      },
-   input : (x,y)=>{return $('<input/>'),{ id: x, type : y}},
-   iTxt : x=>{return $('<input/>',{ id : x, type : 'text'});},
-   aBtn :x=>{$('<a/>',{id :x , href :'#', role : 'button' })},
-   iBtn : x=>{$('<input/>'),{id: x, type: 'bytton'}}
-  
-}
+      br : x=>{return $('<br/>')},
+      div : x=>{return $('<div/>',{id:x});},  //돔방식 리턴 받을때 append, after..
+      div11 : ()=>{return '';},   // 스트링방식     리턴 받을때 html.
+      image : (x,y)=>{return $('<img/>',{id : x, src : y});},
+      input : (x,y)=>{return $('<input/>',{id : x, type : y});},
+      h1 : x=>{return $('<h1/>',{id:x});},
+      h2 : x=>{return $('<h2/>',{id:x});},
+      h3 : x=>{return $('<h3/>',{id:x});},
+      span : x=>{return $('<span/>',{id:x});},
+      iTxt : x=>{return $('<input/>',{id:x ,type :'text'});},
+      aBtn : x=>{return $('<a/>',{href:'#' , role :'button' , id:x });},
+      }
 var algoUI={
    series : ()=>{
       return '<div id="content">'
@@ -161,19 +289,16 @@ var algoUI={
          +'<span id="start_txt">시작값: &nbsp;&nbsp;</span>'
          +'<br/><span id="end_txt">끝   값:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br/>'
          +'<div id="result"></div>';
-   },
-   sort : ()=>{
-	   return '<div id="content">'
-       +'<h1>시작값부터 끝값까지 등차수열의 합</h1>'
-       +'<span id="start_txt">숫자 입력: &nbsp;&nbsp;</span>'
-       +'</br><input id="resultBtn" type="button" value="결과보기"></input>'
-       +'<div id="result"></div>';
-   },
-   mtx : ()=>{
-	   return  '<div id="content">'
-       +'<h1>시작값부터 끝값까지 등차수열의 합</h1>'
-       +'<span id="start_txt">숫자 입력: &nbsp;&nbsp;</span>'
-       +'</br><input id="resultBtn" type="button" value="결과보기"></input>'
-       +'<div id="result"></div>';
-   }
+   } ,
+  
+      sort : ()=>{
+            return '<div id="content">'
+             +'<h1>시작값부터 끝값까지 등차수열의 합</h1>'
+             +'<span id="start_txt">숫자 입력: &nbsp;&nbsp;</span>'
+            
+             +'<div id="result"></div>';
+         }
+      
 };
+
+        

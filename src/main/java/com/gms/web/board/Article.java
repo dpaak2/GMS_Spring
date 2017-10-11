@@ -6,13 +6,8 @@ import lombok.Data;
 	
 	@Lazy @Component @Data
 	public class Article {
-		private String id,title, content,regdate;
+		private String id,title, content,regdate,pass;
 		private int articleSeq, hitCount;
-
-		@Override
-		public String toString() {
-			return "ArticleBean [id=" + id + ", title=" + title + ", content=" + content + ", regdate=" + regdate
-					+ ", articleSeq=" + articleSeq + ", hitCount=" + hitCount + "]";
-		}
+		
 		
 	}

@@ -135,30 +135,29 @@ meta.board=(()=>{
       
    };
    var detail=(x)=>{
-      alert('디테일');
-      init();
-      alert('선택한값'+x);
-      
+        init();
         $.getJSON(ctx+'/get/articles/'+x,d=>{
+         var pass='';
            alert('data값'+d.test);
            $.getScript(temp,()=>{
               $container.html(introUI.detail());
-              $('#add').html('게시글보기');
-              $('#fname').val(d.detail.title);
-              $('#lname').val(d.detail.id);
-              $('#message').val(d.detail.content);
-             
-              
-              
+              $('#legend').html('게시글보기');
+              $('#fname').val(d.detail.title).attr('readonly','true');
+              $('#lname').val(d.detail.id).attr('readonly','true');
+              $('#message').val(d.detail.content).attr('readonly','true');
               $('#ok').html('수정').click(e=>{
                  e.preventDefault();
-                 $('#add').html('게시글수정하기');
+                 $('#legend').html('게시글수정하기');
+                 $('#fname').val(d.detail.title).removeAttr('readonly','true');
+                 $('#message').val(d.detail.content).removeAttr('readonly','true');
+                 
                  $('#no').click(e=>{
                     e.preventDefault();
                     update(x);
-                 })
+                 });
+                 
                  $('#ok').html('확인').attr('id','updateBtn').click(e=>{
-                	 var _seq=d.detail.article_Seq;
+                	 var _seq=d.detail.articleSeq;
                      var _id=$('#lname').val();
                      var _title=$('#fname').val();
                      var _message=$('#message').val();
@@ -169,7 +168,7 @@ meta.board=(()=>{
                        method : 'post',
                        dataType : 'json',
                        data  : JSON.stringify({
-                          'article_Seq' : _seq,
+                          'articleSeq' : _seq,
                           'title' : _title,
                           'id' : _id,
                           'content' : _message
@@ -177,6 +176,7 @@ meta.board=(()=>{
                        contentType : 'application/json',
                        success : d=>{
                           alert('ajax통신성공    :::'+d.msg);
+                          detail(d.articleSeq);
                        },
                        error : (x,s,m)=>{
                           alert('글수정시 에러발생'+m);
@@ -195,7 +195,7 @@ meta.board=(()=>{
                    .addClass('btn btn-primary')
                    .html('삭제하기').click(e=>{
                       e.preventDefault(); 
-                      deleteArticle(x+','+pass);
+                      deleteArticle({'seq':d.detail.articleSeq,'pass':d.detail.pass});
                    });
                    ;
                 });
@@ -231,9 +231,27 @@ meta.board=(()=>{
    };
    var deleteArticle=x=>{
       alert('삭제버튼');
+      alert('json' + x);
+    $.ajax({
+    	url : ctx+'/delete/article',
+    	method : 'post',
+    	dataType : 'json',
+    	data :JSON.stringify(x),
+    	contentType :'application/json',
+    	succss : x=>{
+    		alert('성공인가요?? '+x.msg);
+    		deleteArticle(x);
+    	},
+    	error : (x,s,m)=>{
+    		alert('글 삭제시 에러 발생@!!!'+m);
+    	}
+    });
+    
+    
       var url=ctx+'/get/board/list';
        $.getJSON(url,data=>{
            
+    	   
            alert('count'+data.total.count);
            $container.html(introUI.board());
            $('#total').after();
@@ -252,27 +270,14 @@ meta.board=(()=>{
                 +'</tr>';
              });
              $('#tbody').html(tr);   
-             
+             //commitPass
              $count=$('#total');
              $count.html(data.total.count);
-          
-           
-          $('#add').click(()=>{
-             alert('클릭');
-              meta.board.write();
-          });
-           
-           
-           $('#searchBtn').click(()=>{
-              alert('검색');
-           });    
-           $('#addBtn').click(()=>{
-              alert('검색');
-           });
+ 
         });
    };
    
-   return {detail:detail,init:init,write:write
+   return {detail:detail,init:init,write:write,deleteArticle:deleteArticle
       };
    
 })();

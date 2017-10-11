@@ -96,7 +96,6 @@ public class BoardController {
       Map<String,Object> map=new HashMap<>();
       map.put("msg", art.getTitle());
       IPostServie update;
-      cmd =new Command();
       cmd.setSearch(String.valueOf(art.getArticleSeq()));
       cmd.setDir(art.getTitle());
       cmd.setColumn(art.getContent());
@@ -105,6 +104,7 @@ public class BoardController {
     	   boardMapper.updateArticle(cmd);
 	   };
 	   update.execute(cmd);
+	   map.put("articleSeq", cmd.getSearch());
       return map;
    }
    public @ResponseBody Map<?,?> delete(){
